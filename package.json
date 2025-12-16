@@ -1,0 +1,124 @@
+{
+  "name": "youspec",
+  "displayName": "YouSpec",
+  "description": "Your coding DNA, portable across any AI. Document your coding style once and every AI follows it.",
+  "version": "0.0.1",
+  "publisher": "gundurraga",
+  "icon": "logo.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gundurraga/youspec"
+  },
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "coding-style",
+    "preferences",
+    "ai",
+    "claude",
+    "copilot",
+    "standards",
+    "conventions"
+  ],
+  "activationEvents": [],
+  "main": "./extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "youspec",
+          "title": "YouSpec",
+          "icon": "$(symbol-ruler)"
+        }
+      ]
+    },
+    "views": {
+      "youspec": [
+        {
+          "id": "youspecSkills",
+          "name": "Skills",
+          "canMoveViews": true
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "youspec.addSkill",
+        "title": "Add Skill",
+        "icon": "$(add)"
+      },
+      {
+        "command": "youspec.addFolder",
+        "title": "Add Folder",
+        "icon": "$(new-folder)"
+      },
+      {
+        "command": "youspec.copySkill",
+        "title": "Copy Skill",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "youspec.deleteItem",
+        "title": "Delete",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "youspec.renameItem",
+        "title": "Rename",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "youspec.refresh",
+        "title": "Refresh",
+        "icon": "$(refresh)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "youspec.addSkill",
+          "when": "view == youspecSkills",
+          "group": "navigation@1"
+        },
+        {
+          "command": "youspec.addFolder",
+          "when": "view == youspecSkills",
+          "group": "navigation@2"
+        },
+        {
+          "command": "youspec.refresh",
+          "when": "view == youspecSkills",
+          "group": "navigation@3"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "youspec.addSkill",
+          "when": "view == youspecSkills && viewItem == folder"
+        },
+        {
+          "command": "youspec.addFolder",
+          "when": "view == youspecSkills && viewItem == folder"
+        },
+        {
+          "command": "youspec.copySkill",
+          "when": "view == youspecSkills && viewItem == skill",
+          "group": "inline"
+        },
+        {
+          "command": "youspec.renameItem",
+          "when": "view == youspecSkills"
+        },
+        {
+          "command": "youspec.deleteItem",
+          "when": "view == youspecSkills"
+        }
+      ]
+    }
+  }
+}

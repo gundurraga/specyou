@@ -38,6 +38,7 @@ Document your coding style once - naming, architecture, patterns, preferences - 
 ```
 
 **How skills work:**
+
 - Each skill is a focused, standalone capability
 - AI reads YOUSPEC.md once (small file) to know what skills exist
 - AI loads specific skills based on current task
@@ -46,28 +47,32 @@ Document your coding style once - naming, architecture, patterns, preferences - 
 - Never reads everything
 
 **YOUSPEC.md (tiny bootstrap file):**
+
 ```markdown
 # YouSpec
 
 My coding DNA lives in ~/.youspec/skills/
 
 ## When to Load What
-| Task | Load these skills |
-|------|-------------------|
-| Writing code | coding/naming, coding/architecture |
-| Debugging | workflows/debugging |
-| Code review | workflows/code-review |
-| Git operations | coding/git |
-| Starting project | coding/architecture |
-| Brainstorming | workflows/brainstorming |
+
+| Task             | Load these skills                  |
+| ---------------- | ---------------------------------- |
+| Writing code     | coding/naming, coding/architecture |
+| Debugging        | workflows/debugging                |
+| Code review      | workflows/code-review              |
+| Git operations   | coding/git                         |
+| Starting project | coding/architecture                |
+| Brainstorming    | workflows/brainstorming            |
 
 ## How to Use
+
 1. Check table above for relevant skills
 2. Load ONLY those skills (not everything)
 3. If ambiguous, log to gaps.md and keep working
 ```
 
 **Why skills vs flat specs:**
+
 - Scales to 50+ files without overwhelming AI
 - Clear separation: coding DNA vs workflow skills
 - Extensible: add new skill categories without touching existing
@@ -76,6 +81,7 @@ My coding DNA lives in ~/.youspec/skills/
 ## THE CORE PRODUCT: Spec Creation Process
 
 The questionnaire prompt is the most important artifact. It must:
+
 - Ask smart questions that reveal real preferences
 - Be OPINIONATED - like Warren Buffett picking stocks
 - Always bias toward: **simplicity, clarity, brevity**
@@ -94,6 +100,7 @@ Just like Buffett has principles for picking stocks (moat, management, margin of
 5. **Local over global** - Prefer decisions at smallest possible scope
 
 **When presenting options, always show:**
+
 ```
 Option A: [The simple choice]
   Pros: Easy to read, easy to maintain, no surprises
@@ -110,6 +117,7 @@ Why: The time saved by clever code is lost 10x in debugging and onboarding.
 ### Questionnaire Design Philosophy
 
 **Principles:**
+
 1. One question at a time (not overwhelming)
 2. Show examples/options (not open-ended vagueness)
 3. ALWAYS recommend the simpler option
@@ -118,6 +126,7 @@ Why: The time saved by clever code is lost 10x in debugging and onboarding.
 6. Start general, drill into specifics only where needed
 
 **Flow: General -> Specific**
+
 ```
 Level 1: IDENTITY
   "What languages do you work with?"
@@ -166,6 +175,7 @@ Level 5: STACK-SPECIFIC
 ```
 
 **Key principles:**
+
 1. Skills loaded ON-DEMAND (not everything every time)
 2. Warren Buffett philosophy: always bias toward simplicity
 3. Opinionated spec creation: present pros/cons, recommend simpler option
@@ -173,35 +183,69 @@ Level 5: STACK-SPECIFIC
 
 ## What Makes This Different from spec-kit/OpenSpec/etc
 
-| Them | YouSpec |
-|------|---------|
-| Project specs (what to build) | Personal DNA (how you code) |
-| Per-project setup | Global, portable across projects |
-| Tools/protocols | Just markdown files |
-| Neutral on choices | Opinionated, biased toward simplicity |
-| Read everything | Load skills on-demand |
-| Coding only | Extensible to workflows (debug, brainstorm, review)
+| Them                          | YouSpec                                             |
+| ----------------------------- | --------------------------------------------------- |
+| Project specs (what to build) | Personal DNA (how you code)                         |
+| Per-project setup             | Global, portable across projects                    |
+| Tools/protocols               | Just markdown files                                 |
+| Neutral on choices            | Opinionated, biased toward simplicity               |
+| Read everything               | Load skills on-demand                               |
+| Coding only                   | Extensible to workflows (debug, brainstorm, review) |
 
-## MVP Scope
+## Distribution: VS Code Extension
 
-**Phase 0: Repo Setup**
-- Copy plan to /specyou/specyou/PLAN.md
-- git init
-- MIT License (gundurraga)
-- README.md (minimal: tagline + what this is)
-- .gitignore
+YouSpec will be a VS Code extension.
 
-**Phase 1: Core**
-- Create skills/coding/: naming.md, architecture.md, errors.md
-- Create YOUSPEC.md (bootstrap)
-- Create gaps.md
-- Create spec-creation-prompt.md (the Warren Buffett questionnaire)
-- Update ~/.claude/CLAUDE.md to integrate
+**Why extension:**
 
-**Phase 2: Workflows**
-- Add skills/workflows/: debugging.md, code-review.md
-- Slash command: /youspec-init for interactive setup
+- Easy install from VS Code marketplace
+- No manual folder copying
+- Sidebar UI to browse/edit skills
+- Commands for spec creation
+- Works alongside Claude Code, Cursor, etc.
 
-**Phase 3: Sharing**
-- "Starter packs" for different styles
-- Public release
+**Extension features:**
+
+- Sidebar view showing ~/.youspec/ tree
+- Create/edit/delete skills
+- Copy skill content to clipboard
+- "Create Spec" command with questionnaire
+- File watcher for real-time sync
+
+**Tech stack (same as Memopad):**
+
+- Plain JavaScript (no TypeScript)
+- VS Code API only (no dependencies)
+- File-based storage (~/.youspec/)
+- Single extension.js file
+
+## MVP Scope (Revised)
+
+**Phase 0: Repo Setup** [DONE]
+
+- PLAN.md, README.md, LICENSE, .gitignore, git init
+
+**Phase 1: VS Code Extension Skeleton**
+
+- package.json (VS Code manifest)
+- extension.js (sidebar + basic commands)
+- Activity bar icon
+- Tree view for ~/.youspec/
+
+**Phase 2: Core Skills**
+
+- Default skills/coding/: naming.md, architecture.md, errors.md
+- YOUSPEC.md (bootstrap file)
+- gaps.md
+- "Copy skill" and "Edit skill" commands
+
+**Phase 3: Spec Creation**
+
+- "Create Spec" command with questionnaire
+- Warren Buffett philosophy in prompts
+- Generate specs from answers
+
+**Phase 4: Publish**
+
+- VS Code marketplace
+- "Starter packs" as downloadable skill sets
