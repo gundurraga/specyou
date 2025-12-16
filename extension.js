@@ -40,34 +40,46 @@ function getDefaultYouspecContent() {
 
 My coding preferences live in ~/.youspec/skills/
 
-## When to Load What
-| Task | Load these skills |
-|------|-------------------|
-| Writing code | skills/coding/naming, skills/coding/architecture |
-| Debugging | skills/workflows/debugging |
-| Code review | skills/workflows/code-review |
-| Git operations | skills/coding/git |
-| Starting project | skills/coding/architecture |
-
 ## How to Use
-1. Check table above for relevant skills
-2. Load ONLY those skills (not everything)
-3. If ambiguous, append to gaps.md and keep working
 
-## CRUD
-- READ: Read the skill files as needed
-- CREATE: When asked to add a spec, create in skills/category/name.md
-- UPDATE: When asked to update, edit that file
-- DELETE: When asked to remove, delete the file
+1. Discover skills: \`ls -R ~/.youspec/skills/\` or \`find ~/.youspec -name "*.md"\`
+2. Search by topic: \`grep -r "keyword" ~/.youspec/skills/\`
+3. Read relevant skills: \`cat ~/.youspec/skills/coding/naming.md\`
+4. Load only what's relevant to your current task
+5. If no skill exists and you had to guess, log it in gaps.md
+
+## Philosophy
+
+I bias toward simplicity. When in doubt:
+- Fewer abstractions > more abstractions
+- Clear > clever
+- Delete > comment out
+- Explicit > implicit
+
+## Managing Skills
+
+- CREATE: \`~/.youspec/skills/category/name.md\`
+- UPDATE: Edit the file directly
+- DELETE: Remove the file
 `;
 }
 
 function getDefaultGapsContent() {
-    return `# Gaps Log
+    return `# Gaps
 
-AI notes things that seem missing. Human reviews periodically.
+When AI encounters a decision without a matching skill, log it here.
 
----
+## Format
+
+\`\`\`
+## [Date] - [Topic]
+Context: What were you doing?
+Decision: What did you decide?
+Question: What skill would have helped?
+\`\`\`
+
+## Log
+
 `;
 }
 

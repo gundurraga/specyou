@@ -33,7 +33,7 @@
         {
           "id": "youspec",
           "title": "YouSpec",
-          "icon": "$(symbol-ruler)"
+          "icon": "$(person)"
         }
       ]
     },
