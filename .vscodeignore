@@ -1,0 +1,9 @@
+.gitignore
+.vscode/**
+.claude/**
+.claude-flow/**
+.swarm/**
+*.vsix
+PLAN.md
+CLAUDE.md
+suggested-specs-list.md

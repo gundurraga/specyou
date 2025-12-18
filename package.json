@@ -4,7 +4,6 @@
   "description": "Your coding DNA, portable across any AI. Document your coding style once and every AI follows it.",
   "version": "0.0.1",
   "publisher": "gundurraga",
-  "icon": "logo.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/gundurraga/youspec"
