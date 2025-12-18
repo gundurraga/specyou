@@ -1,6 +1,6 @@
 # YouSpec
 
-Stop re-explaining your coding style to every AI assistant.
+Stop re-explaining your coding style to every AI assistant. Document once, use everywhere.
 
 Every project, same conversation. "I prefer kebab-case." "No emojis." "TypeScript strict mode." You're training AI from scratch every time.
 
