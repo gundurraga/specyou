@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-YouSpec is a VS Code extension that manages personal coding standards. Skills are stored as plain markdown files in `~/.youspec/`.
+YouSpec is a VS Code extension that manages personal coding standards. Specs are stored as plain markdown files in `~/.youspec/`.
 
 ## Architecture
 
@@ -17,28 +17,42 @@ YouSpec is a VS Code extension that manages personal coding standards. Skills ar
 - Format: Plain markdown files in hierarchical folder structure
 - No database, pure filesystem
 
+### Folder Structure
+```
+~/.youspec/
+  YOUSPEC.md              # Bootstrap
+  gaps.md                 # AI logs missing specs here
+  specs/
+    coding/               # How you write
+    architecture/         # How you design
+    quality/              # How you ensure it works
+    collaboration/        # How you work with others
+    process/              # How you think
+    personality/          # Who you are
+```
+
 ### Key Components
 
 **ensureDefaultStructure()** (`extension.js:8-36`)
 - Creates ~/.youspec/ if missing
-- Creates skills/coding/ and skills/workflows/ folders
+- Creates specs/ with five category folders
 - Creates default YOUSPEC.md and gaps.md
 
-**SkillsProvider Class** (`extension.js:68-130`)
+**SkillsProvider Class** (`extension.js:86-149`)
 - Implements VS Code TreeDataProvider interface
 - `getChildren()` - Recursively loads folder contents
 - `getParent()` - Required for drag and drop support
 - Items sorted: folders first, then files (alphabetically)
 
 **Commands**
-- `youspec.addSkill` - Create new skill file with template
+- `youspec.addSpec` - Create new spec file with template
 - `youspec.addFolder` - Create nested folders
-- `youspec.copySkill` - Copy skill content to clipboard
+- `youspec.copySpec` - Copy spec content to clipboard
 - `youspec.deleteItem` - Delete file or folder
 - `youspec.renameItem` - Rename file or folder
 - `youspec.refresh` - Manual refresh
 
-**File Watcher** (`extension.js:188-192`)
+**File Watcher** (`extension.js:198-204`)
 - Pattern: `**/*` (watches all nested files)
 - Auto-refreshes tree on create/delete/change
 

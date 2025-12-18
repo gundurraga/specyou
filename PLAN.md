@@ -14,68 +14,38 @@ Document your coding style once - naming, architecture, patterns, preferences - 
 4. **Local first** - Lives in ~/.youspec/, yours forever
 5. **Copy to own** - Fork others' DNA, no sync/inheritance complexity
 
-## Architecture: Skills-Based System
+## Architecture: Specs-Based System
 
-**Key insight**: Don't load everything every time. AI loads SKILLS on demand.
+**Key insight**: Don't load everything every time. AI loads SPECS on demand.
 
 ```
 ~/.youspec/
   YOUSPEC.md          # Bootstrap: tells AI how to use youspec
   gaps.md             # AI logs ambiguities here
 
-  skills/             # Modular skills, loaded on-demand
-    coding/           # Coding DNA skills
-      naming.md
-      architecture.md
-      errors.md
-      testing.md
-      git.md
-    workflows/        # Non-coding skills
-      brainstorming.md
-      debugging.md
-      code-review.md
-      planning.md
+  specs/              # Modular specs, loaded on-demand
+    coding/           # How you write (naming, functions, errors, comments)
+    architecture/     # How you design (organization, dependencies, state)
+    quality/          # How you ensure it works (testing, debugging, logging)
+    collaboration/    # How you work with others (git, code-review, docs)
+    process/          # How you think (problem-solving, refactoring, iteration)
+    personality/      # Who you are (aesthetics, interests, communication style)
 ```
 
-**How skills work:**
+**How specs work:**
 
-- Each skill is a focused, standalone capability
-- AI reads YOUSPEC.md once (small file) to know what skills exist
-- AI loads specific skills based on current task
-- Writing code? Load `skills/coding/naming.md`
-- Debugging? Load `skills/workflows/debugging.md`
+- Each spec is a focused, standalone preference
+- AI reads YOUSPEC.md once (small file) to know what specs exist
+- AI loads specific specs based on current task
+- Writing code? Load `specs/coding/naming.md`
+- Debugging? Load `specs/quality/debugging.md`
 - Never reads everything
 
-**YOUSPEC.md (tiny bootstrap file):**
-
-```markdown
-# YouSpec
-
-My coding DNA lives in ~/.youspec/skills/
-
-## When to Load What
-
-| Task             | Load these skills                  |
-| ---------------- | ---------------------------------- |
-| Writing code     | coding/naming, coding/architecture |
-| Debugging        | workflows/debugging                |
-| Code review      | workflows/code-review              |
-| Git operations   | coding/git                         |
-| Starting project | coding/architecture                |
-| Brainstorming    | workflows/brainstorming            |
-
-## How to Use
-
-1. Check table above for relevant skills
-2. Load ONLY those skills (not everything)
-3. If ambiguous, log to gaps.md and keep working
-```
-
-**Why skills vs flat specs:**
+**Why specs vs flat files:**
 
 - Scales to 50+ files without overwhelming AI
-- Clear separation: coding DNA vs workflow skills
-- Extensible: add new skill categories without touching existing
+- Clear categories match how developers think
+- Extensible: add new spec categories without touching existing
 - On-demand loading = faster, cheaper, less noise
 
 ## THE CORE PRODUCT: Spec Creation Process
@@ -150,47 +120,42 @@ Level 5: STACK-SPECIFIC
   "For TypeScript specifically, do you..."
 ```
 
-## Summary: Skills-Based Design
+## Summary: Specs-Based Design
 
 ```
 ~/.youspec/
-  YOUSPEC.md              # Tiny bootstrap: skill routing table
+  YOUSPEC.md              # Tiny bootstrap
   gaps.md                 # AI logs ambiguities here
 
-  skills/
-    coding/               # Coding DNA
-      naming.md
-      architecture.md
-      errors.md
-      testing.md
-      git.md
-    workflows/            # Non-coding skills
-      brainstorming.md
-      debugging.md
-      code-review.md
-      planning.md
+  specs/
+    coding/               # How you write
+    architecture/         # How you design
+    quality/              # How you ensure it works
+    collaboration/        # How you work with others
+    process/              # How you think
+    personality/          # Who you are
 
 ~/.claude/CLAUDE.md includes:
-  "Read ~/.youspec/YOUSPEC.md to know which skills to load for current task."
+  "Read ~/.youspec/YOUSPEC.md to know which specs to load for current task."
 ```
 
 **Key principles:**
 
-1. Skills loaded ON-DEMAND (not everything every time)
+1. Specs loaded ON-DEMAND (not everything every time)
 2. Warren Buffett philosophy: always bias toward simplicity
 3. Opinionated spec creation: present pros/cons, recommend simpler option
-4. Extensible: add new skill categories without touching existing
+4. Extensible: add new spec categories without touching existing
 
 ## What Makes This Different from spec-kit/OpenSpec/etc
 
-| Them                          | YouSpec                                             |
-| ----------------------------- | --------------------------------------------------- |
-| Project specs (what to build) | Personal DNA (how you code)                         |
-| Per-project setup             | Global, portable across projects                    |
-| Tools/protocols               | Just markdown files                                 |
-| Neutral on choices            | Opinionated, biased toward simplicity               |
-| Read everything               | Load skills on-demand                               |
-| Coding only                   | Extensible to workflows (debug, brainstorm, review) |
+| Them                          | YouSpec                                |
+| ----------------------------- | -------------------------------------- |
+| Project specs (what to build) | Personal DNA (how you code)            |
+| Per-project setup             | Global, portable across projects       |
+| Tools/protocols               | Just markdown files                    |
+| Neutral on choices            | Opinionated, biased toward simplicity  |
+| Read everything               | Load specs on-demand                   |
+| Coding only                   | Full dev lifecycle (quality, process)  |
 
 ## Distribution: VS Code Extension
 
@@ -200,15 +165,15 @@ YouSpec will be a VS Code extension.
 
 - Easy install from VS Code marketplace
 - No manual folder copying
-- Sidebar UI to browse/edit skills
+- Sidebar UI to browse/edit specs
 - Commands for spec creation
 - Works alongside Claude Code, Cursor, etc.
 
 **Extension features:**
 
 - Sidebar view showing ~/.youspec/ tree
-- Create/edit/delete skills
-- Copy skill content to clipboard
+- Create/edit/delete specs
+- Copy spec content to clipboard
 - "Create Spec" command with questionnaire
 - File watcher for real-time sync
 
@@ -232,12 +197,12 @@ YouSpec will be a VS Code extension.
 - Activity bar icon
 - Tree view for ~/.youspec/
 
-**Phase 2: Core Skills**
+**Phase 2: Core Specs**
 
-- Default skills/coding/: naming.md, architecture.md, errors.md
+- Default specs in each category
 - YOUSPEC.md (bootstrap file)
 - gaps.md
-- "Copy skill" and "Edit skill" commands
+- "Copy spec" and "Edit spec" commands
 
 **Phase 3: Spec Creation**
 
@@ -248,4 +213,4 @@ YouSpec will be a VS Code extension.
 **Phase 4: Publish**
 
 - VS Code marketplace
-- "Starter packs" as downloadable skill sets
+- "Starter packs" as downloadable spec sets

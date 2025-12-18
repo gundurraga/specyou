@@ -1,17 +1,19 @@
 # YouSpec
 
-**Your coding DNA, portable across any AI.**
+**Your digital twin. Your coding DNA. Portable across any AI.**
 
-Document your coding style once - naming, architecture, patterns, preferences - and every AI coding assistant follows it.
+Document who you are as a developer - naming, patterns, preferences, personality - and every AI coding assistant knows how to work with you.
 
 ## What is this?
 
-YouSpec is a VS Code extension for managing your personal coding standards. Your preferences are stored as simple markdown files in `~/.youspec/` that any AI can read.
+YouSpec is YOUR identity, not project specs. It's your digital twin that travels with you across all projects - simple HTML page or complex game, same you.
 
-- Works with Claude Code, Cursor, Codex, Gemini, whatever comes next
-- Skills loaded on-demand (AI only reads what's relevant)
-- Opinionated: always biased toward simplicity
-- Your specs stay local, yours forever
+- **Personal, not project:** Lives in `~/.youspec/`, not in repos
+- **Digital twin:** Coding style + personality + aesthetics + preferences
+- **Portable:** Works with Claude Code, Cursor, Codex, Gemini, whatever comes next
+- **On-demand:** AI only loads specs relevant to current task
+- **Opinionated:** Always biased toward simplicity
+- **Yours forever:** Local markdown files, no cloud, no sync
 
 ## Installation
 
@@ -24,18 +26,31 @@ code --extensionDevelopmentPath=/path/to/specyou
 ## How It Works
 
 ### For You (Human)
-- Sidebar to browse/edit your coding skills
-- Create, rename, delete skills and folders
-- Copy skill content to clipboard
+- Sidebar to browse/edit your specs
+- Create, rename, delete specs and folders
+- Copy spec content to clipboard
 
 ### For AI (Claude Code, etc.)
-Add to your `~/.claude/CLAUDE.md`:
+
+**1. Add to your `~/.claude/CLAUDE.md`:**
 
 ```markdown
+## YouSpec
 Before writing code, read ~/.youspec/YOUSPEC.md for my coding preferences.
-Load only the skills relevant to current task (see routing table in YOUSPEC.md).
-If you notice missing specs, append to ~/.youspec/gaps.md silently.
+Load only the specs relevant to current task.
+
+When you make a decision without a matching spec, log it to ~/.youspec/gaps.md silently.
+
+Periodically review gaps.md. When gaps accumulate or one seems important, propose:
+"I noticed [X] pattern. Want me to create a spec for it?"
+Then follow the creation process in YOUSPEC.md.
 ```
+
+**2. Add permissions for ~/.youspec/ folder:**
+
+Allow Read and Edit on `~/.youspec/**` so Claude Code can discover, search, and update specs without prompting every time.
+
+The AI uses Glob/Grep/Read tools (not Bash) for efficiency with many specs.
 
 ## Structure
 
@@ -43,19 +58,16 @@ If you notice missing specs, append to ~/.youspec/gaps.md silently.
 ~/.youspec/
   YOUSPEC.md              # Bootstrap (tells AI what to load)
   gaps.md                 # AI logs missing specs here
-  skills/
-    coding/               # Your coding DNA
-      naming.md
-      architecture.md
-      errors.md
-    workflows/            # Non-coding skills
-      debugging.md
-      code-review.md
+  specs/
+    coding/               # How you write (naming, functions, errors)
+    architecture/         # How you design (organization, dependencies)
+    quality/              # How you ensure it works (testing, debugging)
+    collaboration/        # How you work with others (git, code-review)
+    process/              # How you think (problem-solving, iteration)
+    personality/          # Who you are (aesthetics, interests, style)
 ```
 
 ## Philosophy
-
-Like Warren Buffett picking stocks, YouSpec has an investment thesis for coding standards:
 
 1. **Simplicity over cleverness** - Can a junior dev understand it in 30 seconds?
 2. **Clarity over brevity** - Better to be explicit than save keystrokes

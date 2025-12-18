@@ -10,18 +10,20 @@ function ensureDefaultStructure() {
         fs.mkdirSync(YOUSPEC_DIR, { recursive: true });
     }
 
-    const skillsDir = path.join(YOUSPEC_DIR, 'skills');
-    const codingDir = path.join(skillsDir, 'coding');
-    const workflowsDir = path.join(skillsDir, 'workflows');
+    const specsDir = path.join(YOUSPEC_DIR, 'specs');
+    const folders = [
+        path.join(specsDir, 'coding'),
+        path.join(specsDir, 'architecture'),
+        path.join(specsDir, 'quality'),
+        path.join(specsDir, 'collaboration'),
+        path.join(specsDir, 'process'),
+        path.join(specsDir, 'personality')
+    ];
 
-    if (!fs.existsSync(skillsDir)) {
-        fs.mkdirSync(skillsDir, { recursive: true });
-    }
-    if (!fs.existsSync(codingDir)) {
-        fs.mkdirSync(codingDir, { recursive: true });
-    }
-    if (!fs.existsSync(workflowsDir)) {
-        fs.mkdirSync(workflowsDir, { recursive: true });
+    for (const folder of folders) {
+        if (!fs.existsSync(folder)) {
+            fs.mkdirSync(folder, { recursive: true });
+        }
     }
 
     const youspecPath = path.join(YOUSPEC_DIR, 'YOUSPEC.md');
@@ -36,54 +38,59 @@ function ensureDefaultStructure() {
 }
 
 function getDefaultYouspecContent() {
-    return `# YouSpec: My Coding DNA
+    return `# YouSpec: My Digital Twin
 
-My coding preferences live in ~/.youspec/skills/
+This is ME - my coding DNA, preferences, personality. Not project specs.
+It travels with me across all projects.
 
-## How to Use
+## Folders
 
-1. Discover skills: \`ls -R ~/.youspec/skills/\` or \`find ~/.youspec -name "*.md"\`
-2. Search by topic: \`grep -r "keyword" ~/.youspec/skills/\`
-3. Read relevant skills: \`cat ~/.youspec/skills/coding/naming.md\`
-4. Load only what's relevant to your current task
-5. If no skill exists and you had to guess, log it in gaps.md
+- **coding/** - How I write (naming, functions, errors, comments)
+- **architecture/** - How I design (organization, dependencies, state)
+- **quality/** - How I ensure it works (testing, debugging, logging)
+- **collaboration/** - How I work with others (git, code-review, docs)
+- **process/** - How I think (problem-solving, refactoring, iteration)
+- **personality/** - Who I am (aesthetics, interests, communication style)
+
+## For AI
+
+If specs are empty, offer to run init questionnaire (10-15 questions) to create starter specs.
+
+1. Discover specs: use Glob tool with \`~/.youspec/specs/**/*.md\`
+2. Search specs: use Grep tool with pattern on \`~/.youspec/specs/\`
+3. Read only what's relevant to current task
+4. If no spec exists and you had to guess, log it in gaps.md
+
+## Creating Specs
+
+Ask 10 simple relevant questions to understand the preference deeply. Then synthesize into a short spec.
+
+Keep specs short. Inline examples. No labels or scaffolding.
 
 ## Philosophy
 
 I bias toward simplicity. When in doubt:
-- Fewer abstractions > more abstractions
 - Clear > clever
 - Delete > comment out
 - Explicit > implicit
-
-## Managing Skills
-
-- CREATE: \`~/.youspec/skills/category/name.md\`
-- UPDATE: Edit the file directly
-- DELETE: Remove the file
 `;
 }
 
 function getDefaultGapsContent() {
     return `# Gaps
 
-When AI encounters a decision without a matching skill, log it here.
+Spec backlog. When AI makes a decision without a matching spec, log it here.
 
-## Format
+Format: \`- [ ] **category/topic**: what happened, what was decided\`
 
-\`\`\`
-## [Date] - [Topic]
-Context: What were you doing?
-Decision: What did you decide?
-Question: What skill would have helped?
-\`\`\`
+When reviewed and spec created, remove the line.
 
-## Log
+---
 
 `;
 }
 
-class SkillsProvider {
+class SpecsProvider {
     constructor() {
         this._onDidChangeTreeData = new vscode.EventEmitter();
         this.onDidChangeTreeData = this._onDidChangeTreeData.event;
@@ -120,7 +127,7 @@ class SkillsProvider {
 
                 const treeItem = new vscode.TreeItem(
                     item.name,
-                    isDirectory ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None
+                    isDirectory ? vscode.TreeItemCollapsibleState.Expanded : vscode.TreeItemCollapsibleState.None
                 );
 
                 if (isDirectory) {
@@ -129,18 +136,18 @@ class SkillsProvider {
                 } else {
                     treeItem.command = {
                         command: 'vscode.open',
-                        title: 'Open Skill',
+                        title: 'Open Spec',
                         arguments: [vscode.Uri.file(itemPath)]
                     };
-                    treeItem.contextValue = 'skill';
+                    treeItem.contextValue = 'spec';
                     treeItem.iconPath = new vscode.ThemeIcon('file');
                 }
 
                 treeItem.resourceUri = vscode.Uri.file(itemPath);
                 return treeItem;
             }).sort((a, b) => {
-                if (a.contextValue === 'folder' && b.contextValue === 'skill') return -1;
-                if (a.contextValue === 'skill' && b.contextValue === 'folder') return 1;
+                if (a.contextValue === 'folder' && b.contextValue === 'spec') return -1;
+                if (a.contextValue === 'spec' && b.contextValue === 'folder') return 1;
                 return a.label.localeCompare(b.label);
             });
         } catch (err) {
@@ -156,17 +163,17 @@ function getTargetDirectory(item) {
 function activate(context) {
     ensureDefaultStructure();
 
-    const skillsProvider = new SkillsProvider();
-    const treeView = vscode.window.createTreeView('youspecSkills', {
-        treeDataProvider: skillsProvider,
+    const specsProvider = new SpecsProvider();
+    const treeView = vscode.window.createTreeView('youspecSpecs', {
+        treeDataProvider: specsProvider,
         dragAndDropController: {
-            dropMimeTypes: ['application/vnd.code.tree.youspecSkills'],
-            dragMimeTypes: ['application/vnd.code.tree.youspecSkills'],
+            dropMimeTypes: ['application/vnd.code.tree.youspecSpecs'],
+            dragMimeTypes: ['application/vnd.code.tree.youspecSpecs'],
             handleDrag(source, dataTransfer) {
-                dataTransfer.set('application/vnd.code.tree.youspecSkills', new vscode.DataTransferItem(source));
+                dataTransfer.set('application/vnd.code.tree.youspecSpecs', new vscode.DataTransferItem(source));
             },
             handleDrop(target, dataTransfer) {
-                const transferItem = dataTransfer.get('application/vnd.code.tree.youspecSkills');
+                const transferItem = dataTransfer.get('application/vnd.code.tree.youspecSpecs');
                 if (!transferItem) return;
 
                 const source = transferItem.value;
@@ -187,7 +194,7 @@ function activate(context) {
 
                 try {
                     fs.renameSync(sourcePath, newPath);
-                    skillsProvider.refresh();
+                    specsProvider.refresh();
                 } catch (err) {
                     vscode.window.showErrorMessage(`Failed to move: ${err.message}`);
                 }
@@ -199,13 +206,13 @@ function activate(context) {
         new vscode.RelativePattern(YOUSPEC_DIR, '**/*')
     );
 
-    watcher.onDidCreate(() => skillsProvider.refresh());
-    watcher.onDidDelete(() => skillsProvider.refresh());
-    watcher.onDidChange(() => skillsProvider.refresh());
+    watcher.onDidCreate(() => specsProvider.refresh());
+    watcher.onDidDelete(() => specsProvider.refresh());
+    watcher.onDidChange(() => specsProvider.refresh());
 
-    let addSkill = vscode.commands.registerCommand('youspec.addSkill', async (item) => {
+    let addSpec = vscode.commands.registerCommand('youspec.addSpec', async (item) => {
         const name = await vscode.window.showInputBox({
-            prompt: 'Enter skill name',
+            prompt: 'Enter spec name',
             placeHolder: 'e.g., naming.md, error-handling.md'
         });
 
@@ -220,12 +227,12 @@ function activate(context) {
         }
 
         try {
-            fs.writeFileSync(filePath, getSkillTemplate(name), 'utf8');
+            fs.writeFileSync(filePath, getSpecTemplate(name), 'utf8');
             const doc = await vscode.workspace.openTextDocument(filePath);
             await vscode.window.showTextDocument(doc);
-            skillsProvider.refresh();
+            specsProvider.refresh();
         } catch (err) {
-            vscode.window.showErrorMessage(`Failed to create skill: ${err.message}`);
+            vscode.window.showErrorMessage(`Failed to create spec: ${err.message}`);
         }
     });
 
@@ -247,25 +254,25 @@ function activate(context) {
 
         try {
             fs.mkdirSync(folderPath, { recursive: true });
-            skillsProvider.refresh();
+            specsProvider.refresh();
             vscode.window.showInformationMessage(`Folder created: ${name}`);
         } catch (err) {
             vscode.window.showErrorMessage(`Failed to create folder: ${err.message}`);
         }
     });
 
-    let copySkill = vscode.commands.registerCommand('youspec.copySkill', async (item) => {
+    let copySpec = vscode.commands.registerCommand('youspec.copySpec', async (item) => {
         try {
             const content = fs.readFileSync(item.resourceUri.fsPath, 'utf8');
             await vscode.env.clipboard.writeText(content);
             vscode.window.showInformationMessage(`Copied: ${item.label}`);
         } catch (err) {
-            vscode.window.showErrorMessage(`Failed to copy skill: ${err.message}`);
+            vscode.window.showErrorMessage(`Failed to copy spec: ${err.message}`);
         }
     });
 
     let deleteItem = vscode.commands.registerCommand('youspec.deleteItem', async (item) => {
-        const itemType = item.contextValue === 'folder' ? 'folder' : 'skill';
+        const itemType = item.contextValue === 'folder' ? 'folder' : 'spec';
         const result = await vscode.window.showWarningMessage(
             `Delete ${itemType} ${item.label}?`,
             'Delete', 'Cancel'
@@ -278,7 +285,7 @@ function activate(context) {
                 } else {
                     fs.unlinkSync(item.resourceUri.fsPath);
                 }
-                skillsProvider.refresh();
+                specsProvider.refresh();
             } catch (err) {
                 vscode.window.showErrorMessage(`Failed to delete ${itemType}: ${err.message}`);
             }
@@ -286,7 +293,7 @@ function activate(context) {
     });
 
     let renameItem = vscode.commands.registerCommand('youspec.renameItem', async (item) => {
-        const itemType = item.contextValue === 'folder' ? 'folder' : 'skill';
+        const itemType = item.contextValue === 'folder' ? 'folder' : 'spec';
         const newName = await vscode.window.showInputBox({
             prompt: `Enter new ${itemType} name`,
             value: item.label
@@ -304,41 +311,26 @@ function activate(context) {
 
         try {
             fs.renameSync(item.resourceUri.fsPath, newPath);
-            skillsProvider.refresh();
+            specsProvider.refresh();
         } catch (err) {
             vscode.window.showErrorMessage(`Failed to rename ${itemType}: ${err.message}`);
         }
     });
 
     let refresh = vscode.commands.registerCommand('youspec.refresh', () => {
-        skillsProvider.refresh();
+        specsProvider.refresh();
     });
 
-    context.subscriptions.push(addSkill, addFolder, copySkill, deleteItem, renameItem, refresh, watcher);
+    context.subscriptions.push(addSpec, addFolder, copySpec, deleteItem, renameItem, refresh, watcher);
 }
 
-function getSkillTemplate(name) {
-    const skillName = name.replace('.md', '').replace(/-/g, ' ');
-    return `# ${skillName.charAt(0).toUpperCase() + skillName.slice(1)}
+function getSpecTemplate(name) {
+    const specName = name.replace('.md', '').replace(/-/g, ' ');
+    return `# ${specName.charAt(0).toUpperCase() + specName.slice(1)}
 
-## Preference
-[Describe your preference in 1-2 sentences]
+[Your rule here. Be specific. Include inline examples.]
 
-## Why
-[Why do you prefer this?]
-
-## Examples
-
-Good:
-- example1
-- example2
-
-Bad:
-- bad-example1
-- bad-example2
-
-## Exceptions
-- [When to break this rule]
+Exceptions: [when to break this rule]
 `;
 }
 

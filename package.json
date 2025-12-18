@@ -40,16 +40,16 @@
     "views": {
       "youspec": [
         {
-          "id": "youspecSkills",
-          "name": "Skills",
+          "id": "youspecSpecs",
+          "name": "Specs",
           "canMoveViews": true
         }
       ]
     },
     "commands": [
       {
-        "command": "youspec.addSkill",
-        "title": "Add Skill",
+        "command": "youspec.addSpec",
+        "title": "Add Spec",
         "icon": "$(add)"
       },
       {
@@ -58,8 +58,8 @@
         "icon": "$(new-folder)"
       },
       {
-        "command": "youspec.copySkill",
-        "title": "Copy Skill",
+        "command": "youspec.copySpec",
+        "title": "Copy Spec",
         "icon": "$(copy)"
       },
       {
@@ -81,42 +81,42 @@
     "menus": {
       "view/title": [
         {
-          "command": "youspec.addSkill",
-          "when": "view == youspecSkills",
+          "command": "youspec.addSpec",
+          "when": "view == youspecSpecs",
           "group": "navigation@1"
         },
         {
           "command": "youspec.addFolder",
-          "when": "view == youspecSkills",
+          "when": "view == youspecSpecs",
           "group": "navigation@2"
         },
         {
           "command": "youspec.refresh",
-          "when": "view == youspecSkills",
+          "when": "view == youspecSpecs",
           "group": "navigation@3"
         }
       ],
       "view/item/context": [
         {
-          "command": "youspec.addSkill",
-          "when": "view == youspecSkills && viewItem == folder"
+          "command": "youspec.addSpec",
+          "when": "view == youspecSpecs && viewItem == folder"
         },
         {
           "command": "youspec.addFolder",
-          "when": "view == youspecSkills && viewItem == folder"
+          "when": "view == youspecSpecs && viewItem == folder"
         },
         {
-          "command": "youspec.copySkill",
-          "when": "view == youspecSkills && viewItem == skill",
+          "command": "youspec.copySpec",
+          "when": "view == youspecSpecs && viewItem == spec",
           "group": "inline"
         },
         {
           "command": "youspec.renameItem",
-          "when": "view == youspecSkills"
+          "when": "view == youspecSpecs"
         },
         {
           "command": "youspec.deleteItem",
-          "when": "view == youspecSkills"
+          "when": "view == youspecSpecs"
         }
       ]
     }
