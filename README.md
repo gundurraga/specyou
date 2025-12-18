@@ -10,8 +10,8 @@ YouSpec is a simple markdown folder (`~/.youspec/`) that stores your coding pref
 
 ```
 ~/.youspec/
-  YOUSPEC.md              # Bootstrap (tells AI what to load)
-  gaps.md                 # AI logs decisions without specs here
+  YOUSPEC.md              # Instructions for AI assistants
+  gaps.md                 # Missing spec topics (not decisions)
   specs/
     coding/               # How you write (naming, functions, errors)
     architecture/         # How you design (organization, dependencies)
@@ -50,48 +50,28 @@ code --extensionDevelopmentPath=/path/to/specyou
 ### 1. Add to your `~/.claude/CLAUDE.md`:
 
 ```markdown
-## YouSpec
+# YouSpec - READ FIRST
 
-YouSpec stores my coding preferences in ~/.youspec/. It travels with me across all projects.
+**BEFORE ANY CODE ACTION**, check ~/.youspec/ for my preferences.
 
-### When to Use
+Glob ~/.youspec/specs/**/*.md   # discover what specs exist
+Grep "pattern" ~/.youspec/      # search for specific topics
 
-**Check YouSpec before:**
-- Writing, editing, or generating code
-- Creating git commits or pull requests
-- Making design/architecture decisions
+Do this often. My coding DNA lives there. Follow it strictly.
 
-**Skip YouSpec when:**
-- Answering questions about YouSpec itself
-- User explicitly overrides a spec in conversation
-- Simply reading/analyzing code without changes
+**Which specs to read:**
+- Writing code? `specs/coding/`, `specs/architecture/`
+- Git commit/PR? `specs/collaboration/git.md`
+- Debugging? `specs/quality/`
+- Creative decision? `specs/personality/`
 
-### How to Use
+**If specs are empty:** Offer init questionnaire (10 questions per topic).
 
-1. Read ~/.youspec/YOUSPEC.md to understand the structure
-2. Glob ~/.youspec/specs/**/*.md to discover specs
-3. Read only specs relevant to current task
-4. Apply specs (but CLAUDE.md rules take precedence)
+**Missing spec topic?** Log to gaps.md:
+- Correct: `- [ ] **quality/testing**: No spec for test coverage`
+- Wrong: `- Decided to use 80% coverage because...`
 
-### Precedence Rules
-
-1. Explicit user instructions (highest)
-2. CLAUDE.md global rules
-3. YouSpec specs
-4. General best practices (lowest)
-
-### Handling Gaps
-
-When you make a decision without a matching spec:
-1. Decide using best judgment (bias toward simplicity)
-2. Append to ~/.youspec/gaps.md: `- [ ] **category/topic**: what was decided`
-3. Don't mention it to the user unless asked
-
-### Error Handling
-
-- ~/.youspec/ doesn't exist? Ask if user wants to initialize
-- Specs empty? Offer init questionnaire (10-15 questions)
-- Can't read a spec? Skip it, continue with defaults
+**Creating specs:** Ask 10 questions first. Use USER's words, not your assumptions.
 ```
 
 ### 2. Add permissions for `~/.youspec/`:
