@@ -38,52 +38,159 @@ function ensureDefaultStructure() {
 }
 
 function getDefaultYouspecContent() {
-    return `# YouSpec: My Digital Twin
+    return `# YouSpec: My Coding Preferences
 
-This is ME - my coding DNA, preferences, personality. Not project specs.
-It travels with me across all projects.
+This is my personal coding DNA - preferences, style, and decision-making patterns that travel with me across all projects.
 
-## Folders
+Location: ~/.youspec/
 
-- **coding/** - How I write (naming, functions, errors, comments)
-- **architecture/** - How I design (organization, dependencies, state)
-- **quality/** - How I ensure it works (testing, debugging, logging)
-- **collaboration/** - How I work with others (git, code-review, docs)
-- **process/** - How I think (problem-solving, refactoring, iteration)
-- **personality/** - Who I am (aesthetics, interests, communication style)
+## Structure
 
-## For AI
+\`\`\`
+~/.youspec/
+├── YOUSPEC.md (this file)
+├── gaps.md (missing spec topics)
+└── specs/
+    ├── coding/           (how I write code)
+    ├── architecture/     (how I design systems)
+    ├── quality/          (how I ensure correctness)
+    ├── collaboration/    (how I work with others)
+    ├── process/          (how I approach problems)
+    └── personality/      (who I am as a developer)
+\`\`\`
 
-If specs are empty, offer to run init questionnaire (10-15 questions) to create starter specs.
+## For AI Assistants
 
-1. Discover specs: use Glob tool with \`~/.youspec/specs/**/*.md\`
-2. Search specs: use Grep tool with pattern on \`~/.youspec/specs/\`
-3. Read only what's relevant to current task
-4. If no spec exists and you had to guess, log it in gaps.md
+### When to Use YouSpec
 
-## Creating Specs
+**Check specs before:**
+- Writing, editing, or generating code
+- Creating git commits or pull requests
+- Making design/architecture decisions
+- Debugging or reviewing code
 
-Ask 10 simple relevant questions to understand the preference deeply. Then synthesize into a short spec.
+**Skip YouSpec when:**
+- Answering questions about YouSpec itself
+- User explicitly overrides a spec in conversation
+- Simply reading/analyzing existing code without changes
 
-Keep specs short. Inline examples. No labels or scaffolding.
+### How to Use
+
+**Step 1: Discover what specs exist**
+\`\`\`
+Glob: ~/.youspec/specs/**/*.md
+\`\`\`
+
+**Step 2: Match specs to task**
+- Code changes: read specs/coding/ and specs/architecture/
+- Git operations: read specs/collaboration/git.md
+- Debugging/testing: read specs/quality/
+- Style decisions: read specs/personality/
+
+Read only relevant specs. Don't read everything for simple tasks.
+
+**Step 3: Apply specs**
+Follow the specs strictly - this is the user's coding DNA.
+
+### Precedence Rules
+
+1. Explicit user instructions in conversation (highest)
+2. CLAUDE.md global rules
+3. YouSpec specs
+4. General best practices (lowest)
+
+If specs conflict with CLAUDE.md, CLAUDE.md wins.
+
+### Handling Gaps
+
+When you encounter a topic with NO SPEC:
+
+1. Make a reasonable decision (bias toward simplicity)
+2. Log the MISSING TOPIC to ~/.youspec/gaps.md:
+   \`\`\`
+   - [ ] **category/topic**: No spec for [what needs defining]
+   \`\`\`
+3. Continue working - don't stop to ask
+
+**gaps.md is for MISSING SPEC TOPICS, not decisions:**
+- Correct: \`- [ ] **quality/testing**: No spec for test coverage expectations\`
+- Wrong: \`- Decided to use 80% coverage because...\`
+
+**Don't log:**
+- Trivial choices covered by general principles
+- One-off decisions unlikely to recur
+- Topics already covered by existing specs
+
+### Creating Specs
+
+**NEVER write specs from your assumptions.** These are the USER's preferences, not yours.
+
+**1. Ask 10 focused questions** specific to the topic:
+- Scenario-based: "When you have 3 optional parameters, do you prefer...?"
+- Trade-off based: "Fast vs maintainable - which wins when...?"
+- Edge cases: "What about legacy code that doesn't follow the rule?"
+
+**2. WAIT for user answers**
+
+**3. Synthesize into a tight spec using USER's words:**
+- Lead with core principle (1 sentence)
+- Rules as bullets (5-10 max)
+- Inline examples: \`Bad: foo() // Good: getUserById()\`
+- Under 30 lines total
+- No meta-commentary or scaffolding
+
+**4. Save to appropriate folder** in ~/.youspec/specs/
+
+### Error Recovery
+
+- ~/.youspec/ doesn't exist? Ask if user wants to initialize
+- Specs folder empty? Offer init questionnaire (10 questions per topic)
+- Can't read a spec? Skip it and continue with defaults
+- Contradictory specs? Ask user which takes precedence
 
 ## Philosophy
 
-I bias toward simplicity. When in doubt:
+When in doubt:
+
 - Clear > clever
-- Delete > comment out
 - Explicit > implicit
+- Delete > comment out
+- Simple > complex
+- Ask > guess (for important decisions)
+
+### When Principles Conflict
+
+Principles guide, but vision wins:
+
+1. **Does it work?** (correctness beats elegance)
+2. **Does it match the vision?** (right complexity beats wrong simplicity)
+3. **Can it be maintained?** (future you beats present you)
+4. **Is it simple?** (only after 1-3 are satisfied)
 `;
 }
 
 function getDefaultGapsContent() {
     return `# Gaps
 
-Spec backlog. When AI makes a decision without a matching spec, log it here.
+Missing spec topics. When AI encounters a topic with no spec, log it here.
 
-Format: \`- [ ] **category/topic**: what happened, what was decided\`
+## What to Log
 
-When reviewed and spec created, remove the line.
+Log MISSING SPEC TOPICS, not decisions made.
+
+**Correct:** \`- [ ] **quality/error-handling**: No spec for how to handle errors\`
+**Wrong:** \`- Decided to use try-catch with logging because...\`
+
+## Format
+
+\`- [ ] **category/topic**: brief description of what needs a spec\`
+
+## Workflow
+
+1. AI logs missing topics while working
+2. Periodically review accumulated gaps
+3. Pick important one, AI asks 10 questions, creates spec
+4. Remove the line once spec exists
 
 ---
 
