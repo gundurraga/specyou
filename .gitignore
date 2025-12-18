@@ -21,3 +21,9 @@ venv/
 # Temp files
 *.tmp
 *.temp
+
+# Claude Flow
+.claude-flow/
+.claude-flow-memory/
+.swarm/
+claude-flow.log
