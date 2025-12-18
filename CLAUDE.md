@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-YouSpec is a VS Code extension that manages personal coding standards. Specs are stored as plain markdown files in `~/.youspec/`.
+YouSpec is a VS Code extension that manages personal coding preferences. Specs are stored as plain markdown files in `~/.youspec/`.
 
 ## Architecture
 
@@ -35,7 +35,7 @@ YouSpec is a VS Code extension that manages personal coding standards. Specs are
 
 **ensureDefaultStructure()** (`extension.js:8-36`)
 - Creates ~/.youspec/ if missing
-- Creates specs/ with five category folders
+- Creates specs/ with category folders
 - Creates default YOUSPEC.md and gaps.md
 
 **SkillsProvider Class** (`extension.js:86-149`)
@@ -63,6 +63,40 @@ code --extensionDevelopmentPath=/Users/gundurraga/Desktop/indie-dev/specyou/spec
 ```
 
 Or press F5 in VS Code to launch extension development host.
+
+## Spec Structure Standard
+
+Every spec should follow this structure for AI consumption:
+
+```markdown
+# Topic
+
+## Rule
+Core principle in one sentence.
+
+## Why
+- Reason 1
+- Reason 2
+
+## Priorities
+1. MUST: non-negotiable
+2. SHOULD: strong preference
+3. MAY: acceptable when needed
+
+## For AI
+- Auto-fix allowed: [what AI can change without asking]
+- Ask first: [what AI should confirm]
+- Never change: [what AI should not touch]
+
+## Anti-patterns
+What to avoid with examples.
+
+## Exceptions
+When to break the rule.
+
+## Examples
+Good vs bad with inline code.
+```
 
 ## Development Guidelines
 
