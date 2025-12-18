@@ -36,21 +36,27 @@ code --extensionDevelopmentPath=/path/to/specyou
 
 ```markdown
 ## YouSpec
-Before writing code, read ~/.youspec/YOUSPEC.md for my coding preferences.
-Load only the specs relevant to current task.
+YouSpec is my digital twin - my coding DNA, preferences, personality. Not project specs.
+It lives in ~/.youspec/ and travels with me across all projects.
 
-When you make a decision without a matching spec, log it to ~/.youspec/gaps.md silently.
+**ALWAYS read relevant specs before any action:**
+- Writing code? Read coding/, architecture/
+- Git commit/PR? Read collaboration/git.md
+- Debugging? Read quality/
+- Any creative decision? Read personality/
 
-Periodically review gaps.md. When gaps accumulate or one seems important, propose:
-"I noticed [X] pattern. Want me to create a spec for it?"
-Then follow the creation process in YOUSPEC.md.
+Use Glob to discover, Grep to search, Read to load.
+
+**If specs folders are empty:** Offer to run init questionnaire (10-15 questions) to create starter specs.
+
+**While working:** When you make a decision without a matching spec, log it to gaps.md silently.
+
+**Periodically:** Review gaps.md and propose creating specs for important patterns.
 ```
 
 **2. Add permissions for ~/.youspec/ folder:**
 
 Allow Read and Edit on `~/.youspec/**` so Claude Code can discover, search, and update specs without prompting every time.
-
-The AI uses Glob/Grep/Read tools (not Bash) for efficiency with many specs.
 
 ## Structure
 
