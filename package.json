@@ -1,7 +1,7 @@
 {
   "name": "specyou",
   "displayName": "SpecYou",
-  "description": "Your coding DNA, portable across any AI. Document your coding style once and every AI follows it.",
+  "description": "Document who you are as a programmer. Your taste, preserved and executable.",
   "version": "0.0.1",
   "icon": "icon.png",
   "publisher": "gundurraga",
@@ -41,7 +41,7 @@
       "specyou": [
         {
           "id": "specyouSpecs",
-          "name": "Specs",
+          "name": "SpecYou",
           "canMoveViews": true
         }
       ]
