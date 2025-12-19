@@ -1,69 +1,49 @@
 # YouSpec
 
-Stop re-explaining your coding style to every AI assistant. Document once, use everywhere.
+No one can replace a tasteful person. But a tasteful person can replace themselves.
 
-Every project, same conversation. "I prefer kebab-case." "No emojis." "TypeScript strict mode." You're training AI from scratch every time.
+YouSpec is not about coding standards. It's about documenting *who you are* as a programmer - your taste, your instincts, your opinions. The things that make your code *yours*.
 
-YouSpec is a simple markdown folder (`~/.youspec/`) that stores your coding preferences. Document once, and any AI assistant reads them automatically.
+When this documentation is structured well - searchable, editable, clear - tools like Claude Code can read it, understand it, and write software exactly as you would. Not generic code. *Your* code.
 
-## How It Works
+This is self-replication. You document once, then multiply. Ten agents, all following your directives. A hundred projects, all in your voice. Your taste, preserved and executable.
+
+The specs aren't rules for AI to follow. They're a portrait of how you think. The closer that portrait, the more indistinguishable the output becomes from your own work.
+
+---
+
+## Structure
+
+A folder of markdown files. Nothing more.
 
 ```
 ~/.youspec/
-  YOUSPEC.md              # Instructions for AI assistants
-  gaps.md                 # Missing spec topics (not decisions)
+  YOUSPEC.md              # Bootstrap instructions
+  gaps.md                 # Missing topics to document
   specs/
-    coding/               # How you write (naming, functions, errors)
-    architecture/         # How you design (organization, dependencies)
-    quality/              # How you ensure it works (testing, debugging)
-    collaboration/        # How you work with others (git, code-review)
-    process/              # How you think (problem-solving, iteration)
-    personality/          # Who you are (aesthetics, interests, style)
+    coding/               # How you write
+    architecture/         # How you design
+    quality/              # How you ensure it works
+    collaboration/        # How you work with others
+    process/              # How you think
+    personality/          # Who you are
 ```
 
-**Writing code?** AI reads `specs/coding/` and `specs/architecture/`.
-**Git commit?** AI reads `specs/collaboration/git.md`.
-**Creative decision?** AI reads `specs/personality/`.
+Portable across projects. Readable by any tool. Editable by hand.
 
-No more repeating yourself. No more fighting AI defaults.
+## Usage
 
-## Why YouSpec?
-
-| Other tools | YouSpec |
-|-------------|---------|
-| Project specs (what to build) | Personal preferences (how you code) |
-| Per-project setup | Global, portable across all projects |
-| Tools and protocols | Just markdown files |
-| Neutral on choices | Opinionated, biased toward simplicity |
-| Load everything | On-demand (only relevant specs) |
-
-## Installation
-
-Install from VS Code Marketplace (coming soon) or test locally:
-
-```bash
-code --extensionDevelopmentPath=/path/to/specyou
-```
-
-## Setup for AI Assistants
-
-### 1. Add to your `~/.claude/CLAUDE.md`:
+Add this to `~/.claude/CLAUDE.md` (or equivalent for your AI tool):
 
 ```markdown
-# YouSpec - READ FIRST
+# YouSpec
 
 **BEFORE ANY CODE ACTION**, check ~/.youspec/ for my preferences.
 
-Glob ~/.youspec/specs/**/*.md   # discover what specs exist
-Grep "pattern" ~/.youspec/      # search for specific topics
+Glob ~/.youspec/specs/**/*.md
+Grep "pattern" ~/.youspec/
 
 Do this often. My coding DNA lives there. Follow it strictly.
-
-**Which specs to read:**
-- Writing code? `specs/coding/`, `specs/architecture/`
-- Git commit/PR? `specs/collaboration/git.md`
-- Debugging? `specs/quality/`
-- Creative decision? `specs/personality/`
 
 **If specs are empty:** Offer init questionnaire (10 questions per topic).
 
@@ -74,35 +54,27 @@ Do this often. My coding DNA lives there. Follow it strictly.
 **Creating specs:** Ask 10 questions first. Use USER's words, not your assumptions.
 ```
 
-### 2. Add permissions for `~/.youspec/`:
+Grant read/edit permissions on `~/.youspec/**`.
 
-Allow Read and Edit on `~/.youspec/**` so AI can discover, search, and update specs without prompting.
+## Principles
 
-## Philosophy
+How to pick standards worth documenting:
 
-Principles for picking coding standards:
-
-1. **Simplicity over cleverness** - Can a junior dev understand it in 30 seconds?
-2. **Clarity over brevity** - Better to be explicit than save keystrokes
-3. **Convention over configuration** - Use language defaults when possible
+1. **Simplicity over cleverness** - Can someone understand it in 30 seconds?
+2. **Clarity over brevity** - Explicit beats terse
+3. **Convention over configuration** - Defaults exist for a reason
 4. **Boring over novel** - Proven patterns beat clever innovations
-5. **Delete over preserve** - Dead code rots. Comments lie. Remove ruthlessly.
+5. **Delete over preserve** - Dead code rots
 
-### When Principles Conflict
+When principles conflict: correctness first, then vision, then maintainability, then simplicity.
 
-Principles guide, but vision wins:
+## Installation
 
-1. **Does it work?** (correctness beats elegance)
-2. **Does it match the vision?** (right complexity beats wrong simplicity)
-3. **Can it be maintained?** (future you beats present you)
-4. **Is it simple?** (only after 1-3 are satisfied)
+VS Code extension (coming soon). For now:
 
-## Features
-
-- Sidebar to browse/edit your specs
-- Create, rename, delete specs and folders
-- Copy spec content to clipboard
-- Works alongside Claude Code, Cursor, any AI that reads files
+```bash
+code --extensionDevelopmentPath=/path/to/specyou
+```
 
 ## License
 
