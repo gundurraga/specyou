@@ -22,6 +22,12 @@ venv/
 *.tmp
 *.temp
 
+# Test output
+tests/simulation/output/
+
+# Build artifacts
+*.vsix
+
 # Claude Flow
 .claude-flow/
 .claude-flow-memory/

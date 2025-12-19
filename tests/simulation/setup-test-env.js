@@ -126,16 +126,15 @@ Fail fast, be explicit, never swallow errors.
 function addGapsToSpecs(specsDir) {
   const gaps = `# Gaps
 
-Decisions made without specs are logged here.
+Missing spec topics. When AI encounters a topic with no spec, log it here.
 
-## 2024-01-15
-- **Testing strategy**: Decided to use Jest with describe/it blocks, 80% coverage target
-- **Import ordering**: Used alphabetical, external first then internal
-- **Async patterns**: Used async/await over .then() chains
+---
 
-## 2024-01-14
-- **Logging format**: Used structured JSON logs with timestamp, level, message
-- **Config management**: Used environment variables with dotenv
+- [ ] **quality/testing**: No spec for test framework and coverage expectations
+- [ ] **coding/imports**: No spec for import ordering
+- [ ] **coding/async**: No spec for async patterns (await vs .then)
+- [ ] **quality/logging**: No spec for log format
+- [ ] **architecture/config**: No spec for config management
 `;
 
   fs.writeFileSync(path.join(specsDir, 'gaps.md'), gaps);
@@ -148,7 +147,7 @@ function setupScenario(scenarioName) {
     throw new Error(`Unknown scenario: ${scenarioName}`);
   }
 
-  const specsDir = config.testSpecsDir + '-' + scenarioName;
+  const specsDir = config.getTestDir(scenarioName);
 
   // Clean up if exists
   if (fs.existsSync(specsDir)) {

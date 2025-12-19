@@ -1,12 +1,11 @@
 const path = require('path');
-const os = require('os');
 
 module.exports = {
-  // Isolated test directory (not real ~/.youspec)
-  testSpecsDir: path.join(os.tmpdir(), 'youspec-test-' + Date.now()),
+  // Test output directory (local, reviewable)
+  outputDir: path.join(__dirname, 'output'),
 
-  // Results storage
-  resultsDir: path.join(__dirname, 'results'),
+  // Each scenario gets a subfolder (overwritten on each run)
+  getTestDir: (scenarioName) => path.join(__dirname, 'output', scenarioName),
 
   // Scenarios
   scenarios: {

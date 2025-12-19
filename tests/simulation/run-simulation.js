@@ -54,16 +54,11 @@ try {
   console.log('\n' + '='.repeat(60));
   console.log('Ready for agent simulation');
   console.log('='.repeat(60));
-  console.log(`\nSpecs directory for agents: ${specsDir}`);
-  console.log('\nTo run cleanup after simulation:');
-  console.log(`node run-simulation.js cleanup ${specsDir}`);
+  console.log(`\nSpecs directory: ${specsDir}`);
+  console.log('\nOutput saved to tests/simulation/output/');
+  console.log('Review results there after simulation.');
 
 } catch (error) {
   console.error('Error:', error.message);
   process.exit(1);
-}
-
-// Handle cleanup command
-if (process.argv[2] === 'cleanup' && process.argv[3]) {
-  cleanup(process.argv[3]);
 }
