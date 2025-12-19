@@ -3,6 +3,7 @@
   "displayName": "SpecYou",
   "description": "Your coding DNA, portable across any AI. Document your coding style once and every AI follows it.",
   "version": "0.0.1",
+  "icon": "icon.png",
   "publisher": "gundurraga",
   "repository": {
     "type": "git",
