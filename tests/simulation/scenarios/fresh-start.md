@@ -1,7 +1,7 @@
 # Scenario: Fresh Start
 
 ## Context
-User has YouSpec installed but no specs yet. Empty `~/.youspec/` directory.
+User has SpecYou installed but no specs yet. Empty `~/.specyou/` directory.
 
 ## Critical Rule: 10-Question Flow
 
@@ -14,7 +14,7 @@ The specs are the USER'S coding DNA, not yours. You must:
 
 ## Your Task
 1. Check if specs exist - confirm empty
-2. Offer: "Your YouSpec is empty. Want me to help capture your coding DNA?"
+2. Offer: "Your SpecYou is empty. Want me to help capture your coding DNA?"
 3. User says yes -> Pick first topic (e.g., naming conventions)
 4. Ask 10 questions about that ONE topic
 5. Wait for answers (in simulation, answers are provided below)

@@ -17,10 +17,10 @@ function createEmptySpecsDir(specsDir) {
     fs.mkdirSync(path.join(specsDir, dir), { recursive: true });
   });
 
-  // Create empty YOUSPEC.md
+  // Create empty SPECYOU.md
   fs.writeFileSync(
-    path.join(specsDir, 'YOUSPEC.md'),
-    '# YouSpec\n\nYour coding DNA lives here.\n'
+    path.join(specsDir, 'SPECYOU.md'),
+    '# SpecYou\n\nYour coding DNA lives here.\n'
   );
 
   // Create empty gaps.md

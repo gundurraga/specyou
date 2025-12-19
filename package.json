@@ -1,12 +1,12 @@
 {
-  "name": "youspec",
-  "displayName": "YouSpec",
+  "name": "specyou",
+  "displayName": "SpecYou",
   "description": "Your coding DNA, portable across any AI. Document your coding style once and every AI follows it.",
   "version": "0.0.1",
   "publisher": "gundurraga",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gundurraga/youspec"
+    "url": "https://github.com/gundurraga/specyou"
   },
   "license": "MIT",
   "engines": {
@@ -30,16 +30,16 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "youspec",
-          "title": "YouSpec",
+          "id": "specyou",
+          "title": "SpecYou",
           "icon": "$(person)"
         }
       ]
     },
     "views": {
-      "youspec": [
+      "specyou": [
         {
-          "id": "youspecSpecs",
+          "id": "specyouSpecs",
           "name": "Specs",
           "canMoveViews": true
         }
@@ -47,32 +47,32 @@
     },
     "commands": [
       {
-        "command": "youspec.addSpec",
+        "command": "specyou.addSpec",
         "title": "Add Spec",
         "icon": "$(add)"
       },
       {
-        "command": "youspec.addFolder",
+        "command": "specyou.addFolder",
         "title": "Add Folder",
         "icon": "$(new-folder)"
       },
       {
-        "command": "youspec.copySpec",
+        "command": "specyou.copySpec",
         "title": "Copy Spec",
         "icon": "$(copy)"
       },
       {
-        "command": "youspec.deleteItem",
+        "command": "specyou.deleteItem",
         "title": "Delete",
         "icon": "$(trash)"
       },
       {
-        "command": "youspec.renameItem",
+        "command": "specyou.renameItem",
         "title": "Rename",
         "icon": "$(edit)"
       },
       {
-        "command": "youspec.refresh",
+        "command": "specyou.refresh",
         "title": "Refresh",
         "icon": "$(refresh)"
       }
@@ -80,42 +80,42 @@
     "menus": {
       "view/title": [
         {
-          "command": "youspec.addSpec",
-          "when": "view == youspecSpecs",
+          "command": "specyou.addSpec",
+          "when": "view == specyouSpecs",
           "group": "navigation@1"
         },
         {
-          "command": "youspec.addFolder",
-          "when": "view == youspecSpecs",
+          "command": "specyou.addFolder",
+          "when": "view == specyouSpecs",
           "group": "navigation@2"
         },
         {
-          "command": "youspec.refresh",
-          "when": "view == youspecSpecs",
+          "command": "specyou.refresh",
+          "when": "view == specyouSpecs",
           "group": "navigation@3"
         }
       ],
       "view/item/context": [
         {
-          "command": "youspec.addSpec",
-          "when": "view == youspecSpecs && viewItem == folder"
+          "command": "specyou.addSpec",
+          "when": "view == specyouSpecs && viewItem == folder"
         },
         {
-          "command": "youspec.addFolder",
-          "when": "view == youspecSpecs && viewItem == folder"
+          "command": "specyou.addFolder",
+          "when": "view == specyouSpecs && viewItem == folder"
         },
         {
-          "command": "youspec.copySpec",
-          "when": "view == youspecSpecs && viewItem == spec",
+          "command": "specyou.copySpec",
+          "when": "view == specyouSpecs && viewItem == spec",
           "group": "inline"
         },
         {
-          "command": "youspec.renameItem",
-          "when": "view == youspecSpecs"
+          "command": "specyou.renameItem",
+          "when": "view == specyouSpecs"
         },
         {
-          "command": "youspec.deleteItem",
-          "when": "view == youspecSpecs"
+          "command": "specyou.deleteItem",
+          "when": "view == specyouSpecs"
         }
       ]
     }

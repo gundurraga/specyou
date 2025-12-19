@@ -1,6 +1,6 @@
-# YouSpec Simulation Tests
+# SpecYou Simulation Tests
 
-Test that YouSpec works - AI reads specs, follows them, discovers gaps.
+Test that SpecYou works - AI reads specs, follows them, discovers gaps.
 
 ## Quick Start
 

@@ -7,7 +7,7 @@ const { setupScenario, cleanup } = require('./setup-test-env');
 const scenarioName = process.argv[2] || 'freshStart';
 
 console.log('='.repeat(60));
-console.log('YouSpec Simulation Runner');
+console.log('SpecYou Simulation Runner');
 console.log('='.repeat(60));
 
 try {

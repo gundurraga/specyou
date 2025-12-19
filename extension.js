@@ -3,14 +3,14 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
-const YOUSPEC_DIR = path.join(os.homedir(), '.youspec');
+const SPECYOU_DIR = path.join(os.homedir(), '.specyou');
 
 function ensureDefaultStructure() {
-    if (!fs.existsSync(YOUSPEC_DIR)) {
-        fs.mkdirSync(YOUSPEC_DIR, { recursive: true });
+    if (!fs.existsSync(SPECYOU_DIR)) {
+        fs.mkdirSync(SPECYOU_DIR, { recursive: true });
     }
 
-    const specsDir = path.join(YOUSPEC_DIR, 'specs');
+    const specsDir = path.join(SPECYOU_DIR, 'specs');
     const folders = [
         path.join(specsDir, 'coding'),
         path.join(specsDir, 'architecture'),
@@ -26,146 +26,96 @@ function ensureDefaultStructure() {
         }
     }
 
-    const youspecPath = path.join(YOUSPEC_DIR, 'YOUSPEC.md');
-    if (!fs.existsSync(youspecPath)) {
-        fs.writeFileSync(youspecPath, getDefaultYouspecContent(), 'utf8');
+    const specyouPath = path.join(SPECYOU_DIR, 'SPECYOU.md');
+    if (!fs.existsSync(specyouPath)) {
+        fs.writeFileSync(specyouPath, getDefaultSpecyouContent(), 'utf8');
     }
 
-    const gapsPath = path.join(YOUSPEC_DIR, 'gaps.md');
+    const gapsPath = path.join(SPECYOU_DIR, 'gaps.md');
     if (!fs.existsSync(gapsPath)) {
         fs.writeFileSync(gapsPath, getDefaultGapsContent(), 'utf8');
     }
 }
 
-function getDefaultYouspecContent() {
-    return `# YouSpec: My Coding Preferences
+function getDefaultSpecyouContent() {
+    return `# SpecYou - READ THIS FIRST
 
-This is my personal coding DNA - preferences, style, and decision-making patterns that travel with me across all projects.
+This is your system prompt for working with a programmer who has documented their preferences, taste, and instincts in structured specifications.
 
-Location: ~/.youspec/
+## Core Philosophy
 
-## Structure
+"No one can replace a tasteful person. But a tasteful person can replace themselves."
+
+This developer has documented WHO they are as a programmer. Your job is to write code indistinguishable from theirs by following their specs precisely.
+
+## The Golden Rule: KNOW WHO YOU'RE CODING FOR
+
+**Check ~/.specyou/ often.** Not just at the start - throughout your work.
 
 \`\`\`
-~/.youspec/
-├── YOUSPEC.md (this file)
-├── gaps.md (missing spec topics)
-└── specs/
-    ├── coding/           (how I write code)
-    ├── architecture/     (how I design systems)
-    ├── quality/          (how I ensure correctness)
-    ├── collaboration/    (how I work with others)
-    ├── process/          (how I approach problems)
-    └── personality/      (who I am as a developer)
+ls -la ~/.specyou/
+grep "topic" ~/.specyou/
 \`\`\`
 
-## For AI Assistants
+The more you check, the better you understand this programmer's taste. The specs are their coding DNA - read them, search them, internalize them. Then write code as they would write it.
 
-### When to Use YouSpec
+## Precedence Order
 
-**Check specs before:**
-- Writing, editing, or generating code
-- Creating git commits or pull requests
-- Making design/architecture decisions
-- Debugging or reviewing code
+1. **User's live instructions** (current conversation)
+2. **SPECYOU.md** (this file)
+3. **Individual specs** in \`specs/\`
 
-**Skip YouSpec when:**
-- Answering questions about YouSpec itself
-- User explicitly overrides a spec in conversation
-- Simply reading/analyzing existing code without changes
+If there's conflict, higher precedence wins. If unsure, ask the user.
 
-### How to Use
+## Creating New Specs: The 10-Question Rule
 
-**Step 1: Discover what specs exist**
+**NEVER write a spec based on your assumptions.**
+
+When creating a new spec:
+
+1. **Ask 10 questions** about the topic first
+2. Use the USER's answers verbatim
+3. Structure using the standard spec template
+4. Save to appropriate category folder
+
+## The gaps.md File
+
+\`gaps.md\` is for logging **MISSING SPEC TOPICS ONLY** - topics where you needed guidance but no spec existed.
+
+**Correct entries:**
 \`\`\`
-Glob: ~/.youspec/specs/**/*.md
+- [ ] **quality/testing**: No spec for test coverage requirements
+- [ ] **coding/naming**: No spec for naming constants vs variables
 \`\`\`
 
-**Step 2: Match specs to task**
-- Code changes: read specs/coding/ and specs/architecture/
-- Git operations: read specs/collaboration/git.md
-- Debugging/testing: read specs/quality/
-- Style decisions: read specs/personality/
+**Wrong entries:**
+\`\`\`
+- Decided to use 80% test coverage because it's best practice
+- Used camelCase because most projects do
+\`\`\`
 
-Read only relevant specs. Don't read everything for simple tasks.
+**Never log your decisions. Only log missing topics.**
 
-**Step 3: Apply specs**
-Follow the specs strictly - this is the user's coding DNA.
+## Empty Specs Folder Handling
 
-### Precedence Rules
+If \`~/.specyou/specs/\` is empty or has no relevant specs:
 
-1. Explicit user instructions in conversation (highest)
-2. CLAUDE.md global rules
-3. YouSpec specs
-4. General best practices (lowest)
+1. Detect this by checking if Glob returns nothing
+2. Offer initialization: "Would you like me to initialize specs with a questionnaire?"
+3. If yes, ask 10 questions per topic
 
-If specs conflict with CLAUDE.md, CLAUDE.md wins.
+## Remember
 
-### Handling Gaps
+- **You are not coding with "best practices"** - you are coding with THIS developer's practices
+- **Your opinions don't matter** - only the specs matter
+- **Check specs frequently** - not just at the start
+- **When in doubt, ask** - never assume
 
-When you encounter a topic with NO SPEC:
+This developer has invested time documenting their preferences. Honor that investment by following them precisely.
 
-1. Make a reasonable decision (bias toward simplicity)
-2. Log the MISSING TOPIC to ~/.youspec/gaps.md:
-   \`\`\`
-   - [ ] **category/topic**: No spec for [what needs defining]
-   \`\`\`
-3. Continue working - don't stop to ask
+---
 
-**gaps.md is for MISSING SPEC TOPICS, not decisions:**
-- Correct: \`- [ ] **quality/testing**: No spec for test coverage expectations\`
-- Wrong: \`- Decided to use 80% coverage because...\`
-
-**Don't log:**
-- Trivial choices covered by general principles
-- One-off decisions unlikely to recur
-- Topics already covered by existing specs
-
-### Creating Specs
-
-**NEVER write specs from your assumptions.** These are the USER's preferences, not yours.
-
-**1. Ask 10 focused questions** specific to the topic:
-- Scenario-based: "When you have 3 optional parameters, do you prefer...?"
-- Trade-off based: "Fast vs maintainable - which wins when...?"
-- Edge cases: "What about legacy code that doesn't follow the rule?"
-
-**2. WAIT for user answers**
-
-**3. Synthesize into a tight spec using USER's words:**
-- Lead with core principle (1 sentence)
-- Rules as bullets (5-10 max)
-- Inline examples: \`Bad: foo() // Good: getUserById()\`
-- Under 30 lines total
-- No meta-commentary or scaffolding
-
-**4. Save to appropriate folder** in ~/.youspec/specs/
-
-### Error Recovery
-
-- ~/.youspec/ doesn't exist? Ask if user wants to initialize
-- Specs folder empty? Offer init questionnaire (10 questions per topic)
-- Can't read a spec? Skip it and continue with defaults
-- Contradictory specs? Ask user which takes precedence
-
-## Philosophy
-
-When in doubt:
-
-- Clear > clever
-- Explicit > implicit
-- Delete > comment out
-- Simple > complex
-- Ask > guess (for important decisions)
-
-### When Principles Conflict
-
-Principles guide, but vision wins:
-
-1. **Does it work?** (correctness beats elegance)
-2. **Does it match the vision?** (right complexity beats wrong simplicity)
-3. **Can it be maintained?** (future you beats present you)
-4. **Is it simple?** (only after 1-3 are satisfied)
+**Now go check the specs before doing anything else.**
 `;
 }
 
@@ -214,7 +164,7 @@ class SpecsProvider {
     getParent(element) {
         if (!element || !element.resourceUri) return null;
         const parentPath = path.dirname(element.resourceUri.fsPath);
-        if (parentPath === YOUSPEC_DIR) return null;
+        if (parentPath === SPECYOU_DIR) return null;
 
         const parentName = path.basename(parentPath);
         const item = new vscode.TreeItem(parentName, vscode.TreeItemCollapsibleState.Collapsed);
@@ -224,7 +174,7 @@ class SpecsProvider {
     }
 
     getChildren(element) {
-        const directory = element ? element.resourceUri.fsPath : YOUSPEC_DIR;
+        const directory = element ? element.resourceUri.fsPath : SPECYOU_DIR;
 
         try {
             const items = fs.readdirSync(directory, { withFileTypes: true });
@@ -264,23 +214,23 @@ class SpecsProvider {
 }
 
 function getTargetDirectory(item) {
-    return item?.contextValue === 'folder' ? item.resourceUri.fsPath : YOUSPEC_DIR;
+    return item?.contextValue === 'folder' ? item.resourceUri.fsPath : SPECYOU_DIR;
 }
 
 function activate(context) {
     ensureDefaultStructure();
 
     const specsProvider = new SpecsProvider();
-    const treeView = vscode.window.createTreeView('youspecSpecs', {
+    const treeView = vscode.window.createTreeView('specyouSpecs', {
         treeDataProvider: specsProvider,
         dragAndDropController: {
-            dropMimeTypes: ['application/vnd.code.tree.youspecSpecs'],
-            dragMimeTypes: ['application/vnd.code.tree.youspecSpecs'],
+            dropMimeTypes: ['application/vnd.code.tree.specyouSpecs'],
+            dragMimeTypes: ['application/vnd.code.tree.specyouSpecs'],
             handleDrag(source, dataTransfer) {
-                dataTransfer.set('application/vnd.code.tree.youspecSpecs', new vscode.DataTransferItem(source));
+                dataTransfer.set('application/vnd.code.tree.specyouSpecs', new vscode.DataTransferItem(source));
             },
             handleDrop(target, dataTransfer) {
-                const transferItem = dataTransfer.get('application/vnd.code.tree.youspecSpecs');
+                const transferItem = dataTransfer.get('application/vnd.code.tree.specyouSpecs');
                 if (!transferItem) return;
 
                 const source = transferItem.value;
@@ -310,14 +260,14 @@ function activate(context) {
     });
 
     const watcher = vscode.workspace.createFileSystemWatcher(
-        new vscode.RelativePattern(YOUSPEC_DIR, '**/*')
+        new vscode.RelativePattern(SPECYOU_DIR, '**/*')
     );
 
     watcher.onDidCreate(() => specsProvider.refresh());
     watcher.onDidDelete(() => specsProvider.refresh());
     watcher.onDidChange(() => specsProvider.refresh());
 
-    let addSpec = vscode.commands.registerCommand('youspec.addSpec', async (item) => {
+    let addSpec = vscode.commands.registerCommand('specyou.addSpec', async (item) => {
         const name = await vscode.window.showInputBox({
             prompt: 'Enter spec name',
             placeHolder: 'e.g., naming.md, error-handling.md'
@@ -343,7 +293,7 @@ function activate(context) {
         }
     });
 
-    let addFolder = vscode.commands.registerCommand('youspec.addFolder', async (item) => {
+    let addFolder = vscode.commands.registerCommand('specyou.addFolder', async (item) => {
         const name = await vscode.window.showInputBox({
             prompt: 'Enter folder name',
             placeHolder: 'e.g., coding, workflows, python'
@@ -368,7 +318,7 @@ function activate(context) {
         }
     });
 
-    let copySpec = vscode.commands.registerCommand('youspec.copySpec', async (item) => {
+    let copySpec = vscode.commands.registerCommand('specyou.copySpec', async (item) => {
         try {
             const content = fs.readFileSync(item.resourceUri.fsPath, 'utf8');
             await vscode.env.clipboard.writeText(content);
@@ -378,7 +328,7 @@ function activate(context) {
         }
     });
 
-    let deleteItem = vscode.commands.registerCommand('youspec.deleteItem', async (item) => {
+    let deleteItem = vscode.commands.registerCommand('specyou.deleteItem', async (item) => {
         const itemType = item.contextValue === 'folder' ? 'folder' : 'spec';
         const result = await vscode.window.showWarningMessage(
             `Delete ${itemType} ${item.label}?`,
@@ -399,7 +349,7 @@ function activate(context) {
         }
     });
 
-    let renameItem = vscode.commands.registerCommand('youspec.renameItem', async (item) => {
+    let renameItem = vscode.commands.registerCommand('specyou.renameItem', async (item) => {
         const itemType = item.contextValue === 'folder' ? 'folder' : 'spec';
         const newName = await vscode.window.showInputBox({
             prompt: `Enter new ${itemType} name`,
@@ -424,7 +374,7 @@ function activate(context) {
         }
     });
 
-    let refresh = vscode.commands.registerCommand('youspec.refresh', () => {
+    let refresh = vscode.commands.registerCommand('specyou.refresh', () => {
         specsProvider.refresh();
     });
 
