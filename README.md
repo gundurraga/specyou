@@ -54,7 +54,7 @@ The more you check, the better you understand my taste. Read them, search them, 
 **Creating specs:** Ask 10 questions first. Use MY words, not your assumptions.
 ```
 
-Grant read/edit permissions on `~/.specyou/**`.
+For Claude Code users: grant read/edit permissions on `~/.specyou/**` in your settings.
 
 ## Principles
 
@@ -70,10 +70,10 @@ When principles conflict: correctness first, then vision, then maintainability, 
 
 ## Installation
 
-VS Code extension (coming soon). For now:
+Search for "SpecYou" in the VS Code Extensions marketplace, or:
 
 ```bash
-code --extensionDevelopmentPath=/path/to/specyou
+code --install-extension gundurraga.specyou
 ```
 
 ## License
