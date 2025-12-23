@@ -34,9 +34,10 @@ If there's conflict, higher precedence wins. If unsure, ask the user.
 When creating a new spec:
 
 1. **Ask 10 questions** about the topic first
-2. Use the USER's answers verbatim
-3. Structure using the standard spec template
-4. Save to appropriate category folder
+2. **Ask follow-up questions** to clarify any doubts
+3. Use the USER's answers verbatim
+4. Structure using the standard spec template
+5. Save to appropriate category folder
 
 ## The gaps.md File
 

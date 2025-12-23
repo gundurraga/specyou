@@ -51,7 +51,7 @@ The more you check, the better you understand my taste. Read them, search them, 
 - Correct: `- [ ] **quality/testing**: No spec for test coverage`
 - Wrong: `- Decided to use 80% coverage because...`
 
-**Creating specs:** Ask 10 questions first. Use MY words, not your assumptions.
+**Creating specs:** Ask 10 questions first. Then follow-up questions to clarify doubts. Use MY words, not your assumptions.
 ```
 
 For Claude Code users: grant read/edit permissions on `~/.specyou/**` in your settings.
