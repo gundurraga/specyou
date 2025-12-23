@@ -38,7 +38,7 @@ Add this to `~/.claude/CLAUDE.md` (or equivalent for your AI tool):
 ```markdown
 # SpecYou - READ FIRST
 
-**Check ~/.specyou/ often.** My coding DNA lives there.
+**Before writing code, check ~/.specyou/.** Your instructions are there.
 
 ls -la ~/.specyou/
 grep "topic" ~/.specyou/

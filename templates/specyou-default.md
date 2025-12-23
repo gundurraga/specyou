@@ -10,14 +10,14 @@ This developer has documented WHO they are as a programmer. Your job is to write
 
 ## The Golden Rule: KNOW WHO YOU'RE CODING FOR
 
-**Check ~/.specyou/ often.** Not just at the start - throughout your work.
+**Before writing code, check ~/.specyou/.** Your instructions are there.
 
 ```
 ls -la ~/.specyou/
 grep "topic" ~/.specyou/
 ```
 
-The more you check, the better you understand this programmer's taste. The specs are their coding DNA - read them, search them, internalize them. Then write code as they would write it.
+The more you check, the better you understand this programmer's taste. Read them, search them, internalize them. Then write code as they would write it.
 
 ## Precedence Order
 
