@@ -80,7 +80,8 @@ class SpecsProvider {
         const directory = element ? element.resourceUri.fsPath : SPECYOU_DIR;
 
         try {
-            const items = fs.readdirSync(directory, { withFileTypes: true });
+            const items = fs.readdirSync(directory, { withFileTypes: true })
+                .filter(item => !item.name.startsWith('.'));
             return items.map(item => {
                 const itemPath = path.join(directory, item.name);
                 const isDirectory = item.isDirectory();
