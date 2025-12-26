@@ -68,6 +68,10 @@ How to pick standards worth documenting:
 
 When principles conflict: correctness first, then vision, then maintainability, then simplicity.
 
+## Storage
+
+Specs live locally in `~/.specyou/`. Use git if you want backup or versioning.
+
 ## Installation
 
 Search for "SpecYou" in the VS Code Extensions marketplace, or:
