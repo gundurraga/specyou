@@ -2,7 +2,7 @@
   "name": "specyou",
   "displayName": "SpecYou",
   "description": "Document who you are as a programmer. Your taste, preserved and executable.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "icon": "icon.png",
   "publisher": "gundurraga",
   "repository": {
@@ -14,6 +14,7 @@
     "vscode": "^1.80.0"
   },
   "categories": [
+    "Machine Learning",
     "Other"
   ],
   "keywords": [
