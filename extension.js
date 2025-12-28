@@ -323,7 +323,7 @@ function activate(context) {
 
     let search = vscode.commands.registerCommand('specyou.search', async () => {
         const quickPick = vscode.window.createQuickPick();
-        quickPick.placeholder = 'Search in specs...';
+        quickPick.placeholder = 'Search in specyou...';
         quickPick.matchOnDescription = true;
 
         quickPick.onDidChangeValue(value => {
