@@ -121,6 +121,49 @@ function getTargetDirectory(item) {
     return item?.contextValue === 'folder' ? item.resourceUri.fsPath : SPECYOU_DIR;
 }
 
+function getAllFiles(directory, files = []) {
+    const items = fs.readdirSync(directory, { withFileTypes: true });
+    for (const item of items) {
+        if (item.name.startsWith('.')) continue;
+        const fullPath = path.join(directory, item.name);
+        if (item.isDirectory()) {
+            getAllFiles(fullPath, files);
+        } else {
+            files.push(fullPath);
+        }
+    }
+    return files;
+}
+
+function searchInFiles(query) {
+    const results = [];
+    const files = getAllFiles(SPECYOU_DIR);
+    const lowerQuery = query.toLowerCase();
+
+    for (const filePath of files) {
+        try {
+            const content = fs.readFileSync(filePath, 'utf8');
+            const lines = content.split('\n');
+
+            for (let i = 0; i < lines.length; i++) {
+                if (lines[i].toLowerCase().includes(lowerQuery)) {
+                    const relativePath = path.relative(SPECYOU_DIR, filePath);
+                    const linePreview = lines[i].trim().substring(0, 60);
+                    results.push({
+                        label: `$(file) ${relativePath}:${i + 1}`,
+                        description: linePreview,
+                        filePath,
+                        line: i
+                    });
+                }
+            }
+        } catch (err) {
+            // Skip files that can't be read
+        }
+    }
+    return results;
+}
+
 function activate(context) {
     ensureDefaultStructure();
 
@@ -278,11 +321,37 @@ function activate(context) {
         }
     });
 
-    let refresh = vscode.commands.registerCommand('specyou.refresh', () => {
-        specsProvider.refresh();
+    let search = vscode.commands.registerCommand('specyou.search', async () => {
+        const quickPick = vscode.window.createQuickPick();
+        quickPick.placeholder = 'Search in specs...';
+        quickPick.matchOnDescription = true;
+
+        quickPick.onDidChangeValue(value => {
+            if (value.length < 2) {
+                quickPick.items = [];
+                return;
+            }
+            quickPick.items = searchInFiles(value);
+        });
+
+        quickPick.onDidAccept(() => {
+            const selected = quickPick.selectedItems[0];
+            if (selected) {
+                const uri = vscode.Uri.file(selected.filePath);
+                vscode.window.showTextDocument(uri).then(editor => {
+                    const position = new vscode.Position(selected.line, 0);
+                    editor.selection = new vscode.Selection(position, position);
+                    editor.revealRange(new vscode.Range(position, position), vscode.TextEditorRevealType.InCenter);
+                });
+            }
+            quickPick.hide();
+        });
+
+        quickPick.onDidHide(() => quickPick.dispose());
+        quickPick.show();
     });
 
-    context.subscriptions.push(addSpec, addFolder, copySpec, deleteItem, renameItem, refresh, watcher);
+    context.subscriptions.push(addSpec, addFolder, copySpec, deleteItem, renameItem, search, watcher);
 }
 
 function getSpecTemplate(name) {

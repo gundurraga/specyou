@@ -2,7 +2,7 @@
   "name": "specyou",
   "displayName": "SpecYou",
   "description": "Document who you are as a programmer. Your taste, preserved and executable.",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "icon": "icon.png",
   "publisher": "gundurraga",
   "repository": {
@@ -74,25 +74,25 @@
         "icon": "$(edit)"
       },
       {
-        "command": "specyou.refresh",
-        "title": "Refresh",
-        "icon": "$(refresh)"
+        "command": "specyou.search",
+        "title": "Search Specs",
+        "icon": "$(search)"
       }
     ],
     "menus": {
       "view/title": [
         {
-          "command": "specyou.addSpec",
+          "command": "specyou.search",
           "when": "view == specyouSpecs",
           "group": "navigation@1"
         },
         {
-          "command": "specyou.addFolder",
+          "command": "specyou.addSpec",
           "when": "view == specyouSpecs",
           "group": "navigation@2"
         },
         {
-          "command": "specyou.refresh",
+          "command": "specyou.addFolder",
           "when": "view == specyouSpecs",
           "group": "navigation@3"
         }
