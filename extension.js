@@ -25,8 +25,8 @@ function ensureDefaultStructure() {
 
     const specsDir = path.join(SPECYOU_DIR, 'specs');
     const folders = [
+        path.join(specsDir, 'app-development'),
         path.join(specsDir, 'coding'),
-        path.join(specsDir, 'architecture'),
         path.join(specsDir, 'quality'),
         path.join(specsDir, 'collaboration'),
         path.join(specsDir, 'process'),

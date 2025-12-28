@@ -21,8 +21,8 @@ A folder of markdown files. Nothing more.
   SPECYOU.md              # Bootstrap instructions (system prompt for AI)
   gaps.md                 # Missing topics to document
   specs/
-    coding/               # How you write
-    architecture/         # How you design
+    app-development/      # How you build apps
+    coding/               # How you write code
     quality/              # How you ensure it works
     collaboration/        # How you work with others
     process/              # How you think
@@ -54,19 +54,20 @@ The more you check, the better you understand my taste. Read them, search them, 
 **Creating specs:** Ask 10 questions first. Then follow-up questions to clarify doubts. Use MY words, not your assumptions.
 ```
 
-For Claude Code users: grant read/edit permissions on `~/.specyou/**` in your settings.
+## Example Specs
 
-## Principles
+The structure is yours to define. Here are some specs that might exist:
 
-How to pick standards worth documenting:
+```
+coding/naming.md           # Your naming conventions
+quality/testing.md         # What and how you test
+collaboration/git.md       # Your commit and branch style
+app-development/stack.md   # Your preferred technologies
+personality/identity.md    # Who you are as a programmer
+personality/aesthetics.md  # What good looks like to you
+```
 
-1. **Simplicity over cleverness** - Can someone understand it in 30 seconds?
-2. **Clarity over brevity** - Explicit beats terse
-3. **Convention over configuration** - Defaults exist for a reason
-4. **Boring over novel** - Proven patterns beat clever innovations
-5. **Delete over preserve** - Dead code rots
-
-When principles conflict: correctness first, then vision, then maintainability, then simplicity.
+Create what represents you. Delete what doesn't.
 
 ## Storage
 

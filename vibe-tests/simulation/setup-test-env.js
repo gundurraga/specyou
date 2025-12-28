@@ -5,8 +5,8 @@ const config = require('./config');
 function createEmptySpecsDir(specsDir) {
   // Create the base structure with empty folders
   const structure = [
+    'specs/app-development',
     'specs/coding',
-    'specs/architecture',
     'specs/quality',
     'specs/collaboration',
     'specs/process',
@@ -134,7 +134,7 @@ Missing spec topics. When AI encounters a topic with no spec, log it here.
 - [ ] **coding/imports**: No spec for import ordering
 - [ ] **coding/async**: No spec for async patterns (await vs .then)
 - [ ] **quality/logging**: No spec for log format
-- [ ] **architecture/config**: No spec for config management
+- [ ] **app-development/config**: No spec for config management
 `;
 
   fs.writeFileSync(path.join(specsDir, 'gaps.md'), gaps);
