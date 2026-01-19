@@ -77,6 +77,10 @@
         "command": "specyou.search",
         "title": "Search Specs",
         "icon": "$(search)"
+      },
+      {
+        "command": "specyou.updateSpecyou",
+        "title": "SpecYou: Update SPECYOU.md"
       }
     ],
     "menus": {

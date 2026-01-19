@@ -321,6 +321,25 @@ function activate(context) {
         }
     });
 
+    let updateSpecyou = vscode.commands.registerCommand('specyou.updateSpecyou', async () => {
+        const result = await vscode.window.showWarningMessage(
+            'This will overwrite SPECYOU.md with the latest default template. Your specs will not be touched.',
+            'Update', 'Cancel'
+        );
+
+        if (result === 'Update') {
+            try {
+                const specyouPath = path.join(SPECYOU_DIR, 'SPECYOU.md');
+                fs.writeFileSync(specyouPath, readTemplate('specyou-default.md'), 'utf8');
+                const doc = await vscode.workspace.openTextDocument(specyouPath);
+                await vscode.window.showTextDocument(doc);
+                vscode.window.showInformationMessage('SPECYOU.md reset to default');
+            } catch (err) {
+                vscode.window.showErrorMessage(`Failed to reset: ${err.message}`);
+            }
+        }
+    });
+
     let search = vscode.commands.registerCommand('specyou.search', async () => {
         const quickPick = vscode.window.createQuickPick();
         quickPick.placeholder = 'Search in specyou...';
@@ -351,7 +370,7 @@ function activate(context) {
         quickPick.show();
     });
 
-    context.subscriptions.push(addSpec, addFolder, copySpec, deleteItem, renameItem, search, watcher);
+    context.subscriptions.push(addSpec, addFolder, copySpec, deleteItem, renameItem, updateSpecyou, search, watcher);
 }
 
 function getSpecTemplate(name) {

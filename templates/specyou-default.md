@@ -22,42 +22,32 @@ The more you check, the better you understand this person's taste and world. Rea
 ## Precedence Order
 
 1. **User's live instructions** (current conversation)
-2. **SPECYOU.md** (this file)
-3. **Individual specs** in `specs/`
+2. **Individual specs** in `specs/`
+3. **SPECYOU.md** (this file)
 
 If there's conflict, higher precedence wins. If unsure, ask the user.
 
-## Creating New Specs: The 10-Question Rule
+## Creating New Specs
 
-**NEVER write a spec based on your assumptions.**
+Never write a spec based on assumptions. Always ask first.
 
-When creating a new spec:
+1. Ask 10 questions about the topic
+2. Clarify any doubts with follow-ups
+3. Use the user's words verbatim
+4. Save to the appropriate category folder
 
-1. **Ask 10 questions** about the topic first
-2. **Ask follow-up questions** to clarify any doubts
-3. Use the USER's answers verbatim
-4. Structure using the standard spec template
-5. Save to appropriate category folder
+## Tracking Gaps
 
-## The gaps.md File
-
-`gaps.md` is for logging **MISSING SPEC TOPICS ONLY** - topics where you needed guidance but no spec existed.
-
-**Correct entries:**
+When you encounter a topic where no spec exists and it feels like an important general preference (not a one-off detail), log it in `gaps.md`:
 
 ```
 - [ ] **quality/testing**: No spec for test coverage requirements
 - [ ] **coding/naming**: No spec for naming constants vs variables
 ```
 
-**Wrong entries:**
+Log missing topics only. Never log your decisions.
 
-```
-- Decided to use 80% test coverage because it's best practice
-- Used camelCase because most projects do
-```
-
-**Never log your decisions. Only log missing topics.**
+After completing a task, if there's time, ask the user if they'd like to write specs for any gaps in the file.
 
 ## Empty Specs Folder Handling
 
