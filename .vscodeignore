@@ -3,7 +3,6 @@
 .claude/**
 .claude-flow/**
 .swarm/**
-vibe-tests/**
 *.vsix
 PLAN.md
 CLAUDE.md
