@@ -33,26 +33,26 @@ Portable across projects. Readable by any tool. Editable by hand.
 
 ## Usage
 
-Add this to `~/.claude/CLAUDE.md` (or equivalent for your AI tool):
+Add a hook to `~/.claude/settings.json` that automatically injects your specs:
 
-```markdown
-# SpecYou - READ FIRST
-
-**Before writing code, check ~/.specyou/.** Your instructions are there.
-
-ls -la ~/.specyou/
-grep "topic" ~/.specyou/
-
-The more you check, the better you understand my taste. Read them, search them, internalize them. Then write code as I would.
-
-**If specs are empty:** Offer init questionnaire (10 questions per topic).
-
-**Missing spec topic?** Log to gaps.md:
-- Correct: `- [ ] **quality/testing**: No spec for test coverage`
-- Wrong: `- Decided to use 80% coverage because...`
-
-**Creating specs:** Ask 10 questions first. Then follow-up questions to clarify doubts. Use MY words, not your assumptions.
+```json
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cat $HOME/.specyou/SPECYOU.md && echo '\n\n---\nTo search specs use: Glob(pattern: **/*.md, path: $HOME/.specyou). Only read specs relevant to the current task.'"
+          }
+        ]
+      }
+    ]
+  }
+}
 ```
+
+This injects your `SPECYOU.md` instructions on every prompt. Claude reads relevant specs automatically - no permission prompts, no manual setup per project.
 
 ## Example Specs
 

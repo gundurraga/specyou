@@ -78,4 +78,14 @@ This developer has invested time documenting their preferences. Honor that inves
 
 ---
 
+## How to Search Specs
+
+Use Glob to find relevant specs:
+
+```
+Glob(pattern: '**/*.md', path: '$HOME/.specyou')
+```
+
+Then Read the relevant ones based on the current task.
+
 **Now go check the specs before doing anything else.**
