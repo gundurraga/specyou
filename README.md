@@ -43,7 +43,7 @@ Add a hook to `~/.claude/settings.json` that automatically injects your specs:
         "hooks": [
           {
             "type": "command",
-            "command": "cat $HOME/.specyou/SPECYOU.md && echo '\n\n---\nTo search specs use: Glob(pattern: **/*.md, path: $HOME/.specyou). Only read specs relevant to the current task.'"
+            "command": "cat $HOME/.specyou/SPECYOU.md && echo '\n\n---\nTo search specs use: Glob(pattern: **/*.md, path: $HOME/.specyou). Read specs relevant to the current task - this includes recommendations, reviews, exploration, and any task where knowing the users preferences matters. Not just coding.'"
           }
         ]
       }
