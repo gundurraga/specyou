@@ -71,7 +71,7 @@ Create what represents you. Delete what doesn't.
 
 ## Storage
 
-Specs live locally in `~/.specyou/`. Use git if you want backup or versioning.
+Specs live locally in `~/.specyou/`. Sync to a GitHub repo (private or public) for backup and portability across machines.
 
 ## Installation
 
