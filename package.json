@@ -1,8 +1,8 @@
 {
   "name": "specyou",
   "displayName": "SpecYou",
-  "description": "Document who you are as a programmer. Your taste, preserved and executable.",
-  "version": "1.0.8",
+  "description": "Replicate yourself. Personal coding preferences for Claude Code. Not project rules, YOUR rules.",
+  "version": "1.0.9",
   "icon": "icon.png",
   "publisher": "gundurraga",
   "repository": {
@@ -14,17 +14,19 @@
     "vscode": "^1.80.0"
   },
   "categories": [
-    "Machine Learning",
-    "Other"
+    "Other",
+    "Programming Languages"
   ],
   "keywords": [
-    "coding-style",
-    "preferences",
+    "claude-code",
+    "ai-assistant",
+    "personalization",
+    "coding-preferences",
+    "hooks",
+    "prompts",
+    "customization",
     "ai",
-    "claude",
-    "copilot",
-    "standards",
-    "conventions"
+    "claude"
   ],
   "activationEvents": [],
   "main": "./extension.js",

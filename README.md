@@ -1,23 +1,30 @@
 # SpecYou
 
+Replicate yourself.
+
+Other tools give AI instructions per project. SpecYou gives AI instructions about YOU. Your taste, your opinions, your instincts. Documented once, applied to every Claude Code session.
+
 No one can replace a tasteful person. But a tasteful person can replace themselves.
 
-SpecYou is not about coding standards. It's about documenting _who you are_ - your taste, your instincts, your opinions. The things that make your work _yours_.
+## What This Is
 
-When this documentation is structured well - searchable, editable, clear - Claude Code reads it and works exactly as you would. Not generic output. _Your_ output.
+A personal preferences system for AI coding assistants. Not project rules. Personal rules.
 
-This is self-replication. You document once, then multiply. Ten agents, all following your directives. A hundred projects, all in your voice. Your taste, preserved and executable.
+`.cursorrules` and `CLAUDE.md` tell AI how to work on one codebase. SpecYou tells AI how YOU work on everything. Different repos, different languages, same taste.
 
----
+You document who you are. Claude Code reads it on every prompt. Output stops being generic. It becomes yours.
 
-## Installation
+## How It Works
 
-1. Install from [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=gundurraga.specyou)
-2. Add the hook to `~/.claude/settings.json`
+1. Install the [VS Code extension](https://marketplace.visualstudio.com/items?itemName=gundurraga.specyou)
+2. Add a hook to `~/.claude/settings.json`
+3. Write specs about how you code, think, decide
+
+Every prompt you send, Claude sees your specs. It codes like you would.
 
 ## Hook Setup
 
-Every prompt you send, Claude sees your specs. Add this hook to `~/.claude/settings.json`:
+Add this to `~/.claude/settings.json`:
 
 ```json
 {
@@ -36,35 +43,31 @@ Every prompt you send, Claude sees your specs. Add this hook to `~/.claude/setti
 }
 ```
 
-## Structure
+## Example structure
 
-A folder of markdown files. Nothing more.
+Markdown files in a folder. Nothing more.
 
 ```
 ~/.specyou/
-  SPECYOU.md              # Bootstrap instructions (system prompt for AI)
-  gaps.md                 # Missing topics to document
+  SPECYOU.md              # System prompt for AI
+  gaps.md                 # Topics to document later
   specs/
-    app-development/      # How you build apps
     coding/               # How you write code
-    quality/              # How you ensure it works
+    quality/              # How you test
     collaboration/        # How you work with others
-    process/              # How you think
+    app-development/      # How you build apps
     personality/          # Who you are
 ```
 
-Portable across projects. Readable by any tool. Editable by hand.
+Portable. Readable by any tool. Editable by hand.
 
 ## Example Specs
 
-The structure is yours to define. Here are some specs that might exist:
-
 ```
 coding/naming.md           # Your naming conventions
+coding/simplicity.md       # Your complexity thresholds
 quality/testing.md         # What and how you test
-collaboration/git.md       # Your commit and branch style
-app-development/stack.md   # Your preferred technologies
-personality/identity.md    # Who you are
+collaboration/git.md       # Your commit style
 personality/aesthetics.md  # What good looks like to you
 ```
 
@@ -72,16 +75,26 @@ Create what represents you. Delete what doesn't.
 
 ## Storage
 
-Specs live locally in `~/.specyou/`. Sync to a GitHub repo (private or public) for backup and portability across machines.
+Specs live in `~/.specyou/`. Back them up to a GitHub repo for portability across machines.
 
 ## Updating
 
-To get the latest default SPECYOU.md template, run `SpecYou: Update SPECYOU.md` from the Command Palette.
+Run `SpecYou: Update SPECYOU.md` from the Command Palette to get the latest default template.
 
-## Questions?
+## Why This Exists
 
-Open an issue on [GitHub](https://github.com/gundurraga/specyou).
+AI coding assistants produce generic output. They follow best practices, not your practices. They write code that works but doesn't feel like yours.
+
+SpecYou fixes this. You document your preferences. AI follows them. The output becomes indistinguishable from what you'd write yourself.
+
+Ten Claude Code agents, all coding like you. A hundred projects, all in your voice.
+
+Self-replication for programmers.
 
 ## License
 
 MIT
+
+## Questions
+
+Open an issue on [GitHub](https://github.com/gundurraga/specyou).
