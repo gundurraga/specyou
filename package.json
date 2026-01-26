@@ -2,7 +2,7 @@
   "name": "specyou",
   "displayName": "SpecYou",
   "description": "Replicate yourself. Personal coding preferences for Claude Code. Not project rules, YOUR rules.",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "icon": "icon.png",
   "publisher": "gundurraga",
   "repository": {

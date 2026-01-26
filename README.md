@@ -2,11 +2,11 @@
 
 Replicate yourself.
 
-![SpecYou sidebar](screenshot.png)
-
 Other tools give AI instructions per project. SpecYou gives AI instructions about YOU. Your taste, your opinions, your instincts. Documented once, applied to every Claude Code session.
 
 No one can replace a tasteful person. But a tasteful person can replace themselves.
+
+![SpecYou sidebar](screenshot.png)
 
 ## What This Is
 
