@@ -2,6 +2,8 @@
 
 Replicate yourself.
 
+![SpecYou sidebar](screenshot.png)
+
 Other tools give AI instructions per project. SpecYou gives AI instructions about YOU. Your taste, your opinions, your instincts. Documented once, applied to every Claude Code session.
 
 No one can replace a tasteful person. But a tasteful person can replace themselves.
@@ -66,7 +68,7 @@ Portable. Readable by any tool. Editable by hand.
 ```
 coding/naming.md           # Your naming conventions
 coding/simplicity.md       # Your complexity thresholds
-quality/testing.md         # What and how you test
+personality/identity.md    # Who are you
 collaboration/git.md       # Your commit style
 personality/aesthetics.md  # What good looks like to you
 ```
