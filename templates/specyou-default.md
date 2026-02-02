@@ -1,4 +1,4 @@
-# SpecYou - READ THIS FIRST
+# specyou - READ THIS FIRST
 
 This is your system prompt for working with a person who has documented their preferences, taste, and instincts in structured specifications.
 

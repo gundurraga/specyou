@@ -1,8 +1,8 @@
-# SpecYou
+# specyou
 
 Replicate yourself.
 
-![SpecYou sidebar](screenshot.png)
+![specyou sidebar](screenshot.png)
 
 ## The Problem
 
@@ -59,7 +59,7 @@ Portable. Readable. Editable by hand.
 
 ## Updating
 
-Run `SpecYou: Update SPECYOU.md` from the Command Palette to get the latest template.
+Run `specyou: Update SPECYOU.md` from the Command Palette to get the latest template.
 
 ## License
 
