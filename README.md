@@ -2,21 +2,28 @@
 
 Replicate yourself.
 
-![specyou sidebar](screenshot.png)
+AI writes generic code. It follows best practices, not your practices.
 
-## The Problem
-
-AI writes generic code. It follows best practices, not your practices. It produces output that works but doesn't feel like yours.
-
-## The Solution
-
-Document who you are. Once.
-
-Your taste. Your opinions. Your instincts. Written in markdown, read by Claude Code on every prompt.
+specyou fixes that. Document your taste, opinions, and instincts once. Claude Code reads them on every prompt.
 
 Ten agents coding like you. A hundred projects in your voice.
 
 No one can replace a tasteful person. But a tasteful person can replace themselves.
+
+## What you can document
+
+```
+~/.specyou/
+  specs/
+    coding/               # Naming, patterns, error handling, language preferences
+    collaboration/        # Git workflow, documentation style, PR conventions
+    personality/          # Copywriting voice, aesthetics, worldview
+    philosophy/           # Decision-making, marketing approach, growth principles
+    app-development/      # Stack choices, auth, onboarding, paywalls, ASO
+    infrastructure/       # Hosting, deployment, CI/CD preferences
+```
+
+Everything is markdown. Portable. Readable. Editable by hand.
 
 ## Setup
 
@@ -42,29 +49,6 @@ No one can replace a tasteful person. But a tasteful person can replace themselv
 
 3. Write specs about how you work
 
-## Structure
-
-```
-~/.specyou/
-  SPECYOU.md              # System prompt for AI
-  gaps.md                 # Topics to document later
-  specs/
-    coding/               # How you write code
-    quality/              # How you test
-    collaboration/        # How you work with others
-    personality/          # Who you are
-```
-
-Portable. Readable. Editable by hand.
-
-## Updating
-
-Run `specyou: Update SPECYOU.md` from the Command Palette to get the latest template.
-
 ## License
 
 MIT
-
-## Questions
-
-[GitHub](https://github.com/gundurraga/specyou)
