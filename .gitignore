@@ -18,6 +18,9 @@ __pycache__/
 .venv/
 venv/
 
+# Secrets
+.env
+
 # Temp files
 *.tmp
 *.temp
@@ -27,6 +30,8 @@ tests/simulation/output/
 
 # Build artifacts
 *.vsix
+cli/templates/
+cli/README.md
 
 # Claude Flow
 .claude-flow/
