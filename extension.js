@@ -44,10 +44,6 @@ function ensureDefaultStructure() {
         fs.writeFileSync(specyouPath, readTemplate('specyou-default.md'), 'utf8');
     }
 
-    const gapsPath = path.join(SPECYOU_DIR, 'gaps.md');
-    if (!fs.existsSync(gapsPath)) {
-        fs.writeFileSync(gapsPath, readTemplate('gaps-default.md'), 'utf8');
-    }
 }
 
 class SpecsProvider {

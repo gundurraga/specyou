@@ -36,19 +36,6 @@ Never write a spec based on assumptions. Always ask first.
 3. Use the user's words verbatim
 4. Save to the appropriate category folder
 
-## Tracking Gaps
-
-When you encounter a topic where no spec exists and it feels like an important general preference (not a one-off detail), log it in `gaps.md`:
-
-```
-- [ ] **quality/testing**: No spec for test coverage requirements
-- [ ] **coding/naming**: No spec for naming constants vs variables
-```
-
-Log missing topics only. Never log your decisions.
-
-After completing a task, if there's time, ask the user if they'd like to write specs for any gaps in the file.
-
 ## Empty Specs Folder Handling
 
 If `~/.specyou/specs/` is empty or has no relevant specs:
