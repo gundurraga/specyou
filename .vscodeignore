@@ -4,6 +4,9 @@
 .claude-flow/**
 .swarm/**
 *.vsix
+cli/**
+.env
 PLAN.md
 CLAUDE.md
+PUBLISHING.md
 suggested-specs-list.md
