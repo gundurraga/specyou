@@ -29,8 +29,9 @@ function ensureDefaultStructure() {
         path.join(specsDir, 'coding'),
         path.join(specsDir, 'quality'),
         path.join(specsDir, 'collaboration'),
-        path.join(specsDir, 'process'),
-        path.join(specsDir, 'personality')
+        path.join(specsDir, 'infrastructure'),
+        path.join(specsDir, 'personality'),
+        path.join(specsDir, 'philosophy')
     ];
 
     for (const folder of folders) {
