@@ -2,88 +2,95 @@
 
 AI writes generic code. It follows "best practices," not *your* practices.
 
-specyou fixes that. Document your taste once. Claude Code reads it on every prompt.
+specyou fixes that. Document your preferences in markdown. Claude Code reads them on every prompt.
+
+---
+
+**Without specyou:**
+
+> "Add a way to delete your account"
+>
+> Claude builds a settings page with a sidebar, a confirmation modal, a soft-delete that retains data for 30 days, an email notification, and a background job to purge later. Forty minutes reviewing code you didn't ask for.
+
+**With specyou:**
+
+> Same prompt. Claude already read your specs. It knows you ship the simplest version first. It knows you hard-delete because you don't want user data you don't need. One button. One action. Done.
+
+**It's not just code.** Your specs cover product decisions, voice, design instincts -- everything you'd normally repeat in every prompt:
+
+> "Build the pricing page" -- Claude doesn't add a comparison table and a "Contact Sales" button. It knows you sell one plan at one price because complex pricing is indecision.
+>
+> "Handle the error when payment fails" -- Claude doesn't write "Oops! Something went wrong." It writes "Your card was declined. Try a different card." Because your spec says: tell the user exactly what happened and what to do next.
+>
+> "Set up auth" -- Claude doesn't scaffold NextAuth with GitHub, Google, email, and magic links. It sets up email and password. Your spec says: one method, add more when users ask.
+
+---
+
+## 10 seconds to set up
 
 ```
 npx specyou init
 ```
 
-That's it. One command. Takes 10 seconds.
+No install needed. Creates `~/.specyou/`, a folder of plain markdown specs. Hooks into Claude Code automatically. Every prompt now starts with your preferences loaded.
 
-## What it does
+You don't write specs by hand. You have a conversation:
 
-specyou creates `~/.specyou/`, a folder of markdown files that describe how *you* work. It hooks into Claude Code so every prompt starts with your preferences loaded.
+```
+> "Ask me 10 questions about how I handle errors"
+> "Document my opinions on onboarding"
+> "I want to spec out how I think about product decisions"
+```
 
-**Without specyou:**
-> "Add a button to delete the user account"
->
-> Claude writes generic React with `handleClick`, `isLoading`, `try/catch`, default error handling. It works. It looks like everyone else's code.
+Claude asks, you answer, it saves the spec in your words. Edit if needed. Done.
 
-**With specyou:**
-> Same prompt. But Claude read your specs first. It knows you prefer early returns over try/catch. It knows you name booleans as questions (`isDeleting`, not `deleteLoading`). It knows your app uses a specific toast pattern for errors. The code looks like *you* wrote it.
+## What a spec looks like
+
+```markdown
+# Error Handling
+
+## Core Principle
+Errors are communication. The user should always know what happened
+and what to do next. Never show a generic "Something went wrong."
+
+## For AI
+- Auto-fix: Replace try/catch wrappers with early returns
+- Auto-fix: Use toast notifications, never alert()
+- Ask first: Custom error types (might change the interface contract)
+- Never: Swallow errors silently. Never catch without handling.
+```
+
+The "For AI" section is the key part. You're not just documenting preferences -- you're telling Claude what to fix silently, what to ask about, and what to never touch.
 
 ## How it works
 
 ```
 ~/.specyou/
-  SPECYOU.md              # System prompt (auto-generated)
+  SPECYOU.md              # Auto-generated system prompt
   specs/
     coding/               # Naming, patterns, error handling
-    personality/          # Voice, aesthetics, tone
-    philosophy/           # Decision-making, growth principles
+    personality/          # Voice, tone, aesthetics
+    philosophy/           # Decision-making, product principles
     app-development/      # Stack, auth, monetization
     ...                   # Your categories, your rules
 ```
 
-Everything is plain markdown. Portable. Version-controllable. Editable by hand.
+Plain markdown. Portable. Version-controllable. Claude Code reads them via a [hook](https://docs.anthropic.com/en/docs/claude-code/hooks) and searches for relevant specs on every prompt.
 
-Claude Code reads `SPECYOU.md` on every prompt via a [hook](https://docs.anthropic.com/en/docs/claude-code/hooks). When it encounters a task, it searches your specs for relevant preferences and follows them.
+## Why this matters
 
-## Writing specs
+No one can replace a tasteful person. But a tasteful person can replace themselves.
 
-You don't write specs by hand. You tell Claude what to document.
+Most AI personalization is shallow -- "be concise" or "use TypeScript." specyou captures the decisions you make instinctively: when to abstract, how to name things, what "good code" means to you, how you think about products, what your voice sounds like. Not rules. Taste.
 
-```
-> "Ask me 10 questions about how I handle errors"
-> "Create a spec for my naming conventions"
-> "I want to document my opinions on monetization"
-```
+## VS Code extension
 
-Claude asks questions, uses your exact words, and saves the spec. You review it, edit if needed, done.
+Sidebar panel to browse, search, and manage specs visually.
 
-## Example spec
+[Install from VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=gundurraga.specyou)
 
-```markdown
-# Naming
-
-## Core Principle
-Names should be as clear and simple as they need to be. No more, no less.
-
-## The Scope-Length Rule
-The length of a name should be proportional to its scope.
-- Small scope (loops, lambdas): `i`, `x` are fine
-- Large scope (globals, public APIs): `findUserByEmailAddress`
-
-## Collections
-Prefer plural nouns: `users`, not `userList` or `userArray`.
-
-## For AI
-- Auto-fix: Expand abbreviations to full words
-- Ask first: Rename functions (might break imports)
-- Never change: API routes, exported names, database columns
-```
-
-## Install
-
-### npm (recommended)
-
-```
-npx specyou init
-```
-
-Creates `~/.specyou/`, scaffolds folders, configures the Claude Code hook automatically.
-
-### Manual
+<details>
+<summary>Manual install (without npm)</summary>
 
 1. Create `~/.specyou/specs/` and add markdown files
 2. Add the hook to `~/.claude/settings.json`:
@@ -96,7 +103,7 @@ Creates `~/.specyou/`, scaffolds folders, configures the Claude Code hook automa
         "hooks": [
           {
             "type": "command",
-            "command": "cat $HOME/.specyou/SPECYOU.md && echo '\\n\\n---\\nTo search specs use: Glob(pattern: **/*.md, path: $HOME/.specyou). Read specs relevant to the current task.'"
+            "command": "cat $HOME/.specyou/SPECYOU.md && echo '\\n\\n---\\nTo search specs use: Glob(pattern: **/*.md, path: $HOME/.specyou). Read specs relevant to the current task - this includes recommendations, reviews, exploration, and any task where knowing the users preferences matters. Not just coding.'"
           }
         ]
       }
@@ -105,19 +112,7 @@ Creates `~/.specyou/`, scaffolds folders, configures the Claude Code hook automa
 }
 ```
 
-### VS Code extension (optional)
-
-Sidebar panel to browse, search, and manage your specs visually.
-
-[Install from VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=gundurraga.specyou)
-
-## The idea
-
-No one can replace a tasteful person. But a tasteful person can replace themselves.
-
-Most AI personalization is shallow: "be concise" or "use TypeScript." specyou goes deeper. It captures the decisions you make instinctively: when to abstract, how to name things, what "good code" means to you, how you think about products, what your voice sounds like.
-
-The result: AI output that's indistinguishable from your own work.
+</details>
 
 ## License
 
