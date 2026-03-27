@@ -26,13 +26,13 @@ specyou fixes that. Document your preferences in markdown. Claude Code reads the
 
 ---
 
-## 10 seconds to set up
+## Install
 
-```
-npx specyou init
-```
+[Install from VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=gundurraga.specyou)
 
-No install needed. Creates `~/.specyou/`, a folder of plain markdown specs. Hooks into Claude Code automatically. Every prompt now starts with your preferences loaded.
+The extension creates `~/.specyou/` with default spec folders and hooks into Claude Code automatically. Every prompt now starts with your preferences loaded.
+
+Sidebar panel to browse, search, and manage specs visually.
 
 You don't write specs by hand. You have a conversation:
 
@@ -83,14 +83,8 @@ No one can replace a tasteful person. But a tasteful person can replace themselv
 
 Most AI personalization is shallow -- "be concise" or "use TypeScript." specyou captures the decisions you make instinctively: when to abstract, how to name things, what "good code" means to you, how you think about products, what your voice sounds like. Not rules. Taste.
 
-## VS Code extension
-
-Sidebar panel to browse, search, and manage specs visually.
-
-[Install from VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=gundurraga.specyou)
-
 <details>
-<summary>Manual install (without npm)</summary>
+<summary>Manual setup (without the extension)</summary>
 
 1. Create `~/.specyou/specs/` and add markdown files
 2. Add the hook to `~/.claude/settings.json`:

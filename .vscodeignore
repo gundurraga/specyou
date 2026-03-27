@@ -4,7 +4,6 @@
 .claude-flow/**
 .swarm/**
 *.vsix
-cli/**
 .env
 PLAN.md
 CLAUDE.md

@@ -30,8 +30,6 @@ tests/simulation/output/
 
 # Build artifacts
 *.vsix
-cli/templates/
-cli/README.md
 
 # Claude Flow
 .claude-flow/
