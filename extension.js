@@ -272,6 +272,11 @@ function activate(context) {
         }
     });
 
+    let copyPath = vscode.commands.registerCommand('specyou.copyPath', async (item) => {
+        await vscode.env.clipboard.writeText(item.resourceUri.fsPath);
+        vscode.window.showInformationMessage(`Copied path: ${item.resourceUri.fsPath}`);
+    });
+
     let deleteItem = vscode.commands.registerCommand('specyou.deleteItem', async (item) => {
         const itemType = item.contextValue === 'folder' ? 'folder' : 'spec';
         const result = await vscode.window.showWarningMessage(
@@ -367,7 +372,7 @@ function activate(context) {
         quickPick.show();
     });
 
-    context.subscriptions.push(addSpec, addFolder, copySpec, deleteItem, renameItem, updateSpecyou, search, watcher);
+    context.subscriptions.push(addSpec, addFolder, copySpec, copyPath, deleteItem, renameItem, updateSpecyou, search, watcher);
 }
 
 function getSpecTemplate(name) {
