@@ -18,33 +18,32 @@ function readTemplate(filename) {
     }
 }
 
-function ensureDefaultStructure() {
-    if (!fs.existsSync(SPECYOU_DIR)) {
-        fs.mkdirSync(SPECYOU_DIR, { recursive: true });
-    }
-
-    const specsDir = path.join(SPECYOU_DIR, 'specs');
-    const folders = [
-        path.join(specsDir, 'app-development'),
-        path.join(specsDir, 'coding'),
-        path.join(specsDir, 'quality'),
-        path.join(specsDir, 'collaboration'),
-        path.join(specsDir, 'infrastructure'),
-        path.join(specsDir, 'personality'),
-        path.join(specsDir, 'philosophy')
-    ];
-
-    for (const folder of folders) {
-        if (!fs.existsSync(folder)) {
-            fs.mkdirSync(folder, { recursive: true });
-        }
-    }
-
+function ensureSpecyouFile() {
     const specyouPath = path.join(SPECYOU_DIR, 'SPECYOU.md');
     if (!fs.existsSync(specyouPath)) {
         fs.writeFileSync(specyouPath, readTemplate('specyou-default.md'), 'utf8');
     }
+}
 
+// Scaffold a starting structure only on a genuine first run, when ~/.specyou
+// does not exist yet. Once it exists, the structure is yours: we never recreate
+// a folder you deleted or add one you didn't ask for. SPECYOU.md is the single
+// exception, since it's the file that makes the whole thing work.
+function scaffoldIfFirstRun() {
+    if (fs.existsSync(SPECYOU_DIR)) {
+        ensureSpecyouFile();
+        return;
+    }
+
+    fs.mkdirSync(SPECYOU_DIR, { recursive: true });
+
+    const specsDir = path.join(SPECYOU_DIR, 'specs');
+    const starterFolders = ['coding', 'personality', 'philosophy'];
+    for (const name of starterFolders) {
+        fs.mkdirSync(path.join(specsDir, name), { recursive: true });
+    }
+
+    ensureSpecyouFile();
 }
 
 class SpecsProvider {
@@ -162,7 +161,7 @@ function searchInFiles(query) {
 }
 
 function activate(context) {
-    ensureDefaultStructure();
+    scaffoldIfFirstRun();
 
     const specsProvider = new SpecsProvider();
     const treeView = vscode.window.createTreeView('specyouSpecs', {
