@@ -4,25 +4,40 @@ const path = require('path');
 const os = require('os');
 
 const SPECYOU_DIR = path.join(os.homedir(), '.specyou');
-
-function getTemplatePath(filename) {
-    return path.join(__dirname, 'templates', filename);
-}
+const SPECYOU_FILE = path.join(SPECYOU_DIR, 'SPECYOU.md');
 
 function readTemplate(filename) {
     try {
-        return fs.readFileSync(getTemplatePath(filename), 'utf8');
+        return fs.readFileSync(path.join(__dirname, 'templates', filename), 'utf8');
     } catch (err) {
         console.error(`Failed to read template ${filename}:`, err.message);
         return '';
     }
 }
 
-function ensureSpecyouFile() {
-    const specyouPath = path.join(SPECYOU_DIR, 'SPECYOU.md');
-    if (!fs.existsSync(specyouPath)) {
-        fs.writeFileSync(specyouPath, readTemplate('specyou-default.md'), 'utf8');
+// Never write an empty SPECYOU.md: a packaging failure would otherwise blank
+// out the one file the whole extension depends on.
+function writeSpecyouFile() {
+    const template = readTemplate('specyou-default.md');
+    if (template) {
+        fs.writeFileSync(SPECYOU_FILE, template, 'utf8');
     }
+}
+
+function ensureSpecyouFile() {
+    if (!fs.existsSync(SPECYOU_FILE)) {
+        writeSpecyouFile();
+    }
+}
+
+// User-entered names go straight into path.join, so reject anything that could
+// escape ~/.specyou or create surprise nesting. Specs default to a .md extension.
+function cleanName(input, kind) {
+    const name = (input || '').trim();
+    if (!name || name === '.' || name === '..' || name.includes('/') || name.includes('\\')) {
+        return null;
+    }
+    return kind === 'spec' && !name.endsWith('.md') ? name + '.md' : name;
 }
 
 // Scaffold a starting structure only on a genuine first run, when ~/.specyou
@@ -58,18 +73,6 @@ class SpecsProvider {
 
     getTreeItem(element) {
         return element;
-    }
-
-    getParent(element) {
-        if (!element || !element.resourceUri) return null;
-        const parentPath = path.dirname(element.resourceUri.fsPath);
-        if (parentPath === SPECYOU_DIR) return null;
-
-        const parentName = path.basename(parentPath);
-        const item = new vscode.TreeItem(parentName, vscode.TreeItemCollapsibleState.Collapsed);
-        item.contextValue = 'folder';
-        item.resourceUri = vscode.Uri.file(parentPath);
-        return item;
     }
 
     getChildren(element) {
@@ -118,6 +121,7 @@ function getTargetDirectory(item) {
 }
 
 function getAllFiles(directory, files = []) {
+    if (!fs.existsSync(directory)) return files;
     const items = fs.readdirSync(directory, { withFileTypes: true });
     for (const item of items) {
         if (item.name.startsWith('.')) continue;
@@ -206,15 +210,15 @@ function activate(context) {
         new vscode.RelativePattern(SPECYOU_DIR, '**/*')
     );
 
+    // Only structural changes affect the tree; content edits don't.
     watcher.onDidCreate(() => specsProvider.refresh());
     watcher.onDidDelete(() => specsProvider.refresh());
-    watcher.onDidChange(() => specsProvider.refresh());
 
-    let addSpec = vscode.commands.registerCommand('specyou.addSpec', async (item) => {
-        const name = await vscode.window.showInputBox({
+    const addSpec = vscode.commands.registerCommand('specyou.addSpec', async (item) => {
+        const name = cleanName(await vscode.window.showInputBox({
             prompt: 'Enter spec name',
             placeHolder: 'e.g., naming.md, error-handling.md'
-        });
+        }), 'spec');
 
         if (!name) return;
 
@@ -236,11 +240,11 @@ function activate(context) {
         }
     });
 
-    let addFolder = vscode.commands.registerCommand('specyou.addFolder', async (item) => {
-        const name = await vscode.window.showInputBox({
+    const addFolder = vscode.commands.registerCommand('specyou.addFolder', async (item) => {
+        const name = cleanName(await vscode.window.showInputBox({
             prompt: 'Enter folder name',
             placeHolder: 'e.g., coding, workflows, python'
-        });
+        }), 'folder');
 
         if (!name) return;
 
@@ -261,7 +265,8 @@ function activate(context) {
         }
     });
 
-    let copySpec = vscode.commands.registerCommand('specyou.copySpec', async (item) => {
+    const copySpec = vscode.commands.registerCommand('specyou.copySpec', async (item) => {
+        if (!item) return;
         try {
             const content = fs.readFileSync(item.resourceUri.fsPath, 'utf8');
             await vscode.env.clipboard.writeText(content);
@@ -271,12 +276,14 @@ function activate(context) {
         }
     });
 
-    let copyPath = vscode.commands.registerCommand('specyou.copyPath', async (item) => {
+    const copyPath = vscode.commands.registerCommand('specyou.copyPath', async (item) => {
+        if (!item) return;
         await vscode.env.clipboard.writeText(item.resourceUri.fsPath);
         vscode.window.showInformationMessage(`Copied path: ${item.resourceUri.fsPath}`);
     });
 
-    let deleteItem = vscode.commands.registerCommand('specyou.deleteItem', async (item) => {
+    const deleteItem = vscode.commands.registerCommand('specyou.deleteItem', async (item) => {
+        if (!item) return;
         const itemType = item.contextValue === 'folder' ? 'folder' : 'spec';
         const result = await vscode.window.showWarningMessage(
             `Delete ${itemType} ${item.label}?`,
@@ -297,12 +304,13 @@ function activate(context) {
         }
     });
 
-    let renameItem = vscode.commands.registerCommand('specyou.renameItem', async (item) => {
+    const renameItem = vscode.commands.registerCommand('specyou.renameItem', async (item) => {
+        if (!item) return;
         const itemType = item.contextValue === 'folder' ? 'folder' : 'spec';
-        const newName = await vscode.window.showInputBox({
+        const newName = cleanName(await vscode.window.showInputBox({
             prompt: `Enter new ${itemType} name`,
             value: item.label
-        });
+        }), itemType);
 
         if (!newName || newName === item.label) return;
 
@@ -322,7 +330,7 @@ function activate(context) {
         }
     });
 
-    let updateSpecyou = vscode.commands.registerCommand('specyou.updateSpecyou', async () => {
+    const updateSpecyou = vscode.commands.registerCommand('specyou.updateSpecyou', async () => {
         const result = await vscode.window.showWarningMessage(
             'This will overwrite SPECYOU.md with the latest default template. Your specs will not be touched.',
             'Update', 'Cancel'
@@ -330,9 +338,8 @@ function activate(context) {
 
         if (result === 'Update') {
             try {
-                const specyouPath = path.join(SPECYOU_DIR, 'SPECYOU.md');
-                fs.writeFileSync(specyouPath, readTemplate('specyou-default.md'), 'utf8');
-                const doc = await vscode.workspace.openTextDocument(specyouPath);
+                writeSpecyouFile();
+                const doc = await vscode.workspace.openTextDocument(SPECYOU_FILE);
                 await vscode.window.showTextDocument(doc);
                 vscode.window.showInformationMessage('SPECYOU.md reset to default');
             } catch (err) {
@@ -341,7 +348,7 @@ function activate(context) {
         }
     });
 
-    let search = vscode.commands.registerCommand('specyou.search', async () => {
+    const search = vscode.commands.registerCommand('specyou.search', async () => {
         const quickPick = vscode.window.createQuickPick();
         quickPick.placeholder = 'Search in specyou...';
         quickPick.matchOnDescription = true;
