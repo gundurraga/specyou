@@ -44,7 +44,7 @@ The AI asks, you answer, it saves the spec in your own words. Edit if you want. 
 
 [Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=gundurraga.specyou)
 
-Free. MIT licensed. On first run it creates `~/.specyou/` with a few starter folders and wires into Claude Code, so every prompt begins with your preferences loaded. After that the structure is yours. Rename folders, delete them, reshape it however you think. specyou won't fight you or put anything back.
+Free. MIT licensed. On first run it creates `~/.specyou/` with `SPECYOU.md` and a few starter folders. Then [connect your AI](#connect-your-ai) once, so every prompt begins with your preferences loaded. After that the structure is yours. Rename folders, delete them, reshape it however you think. specyou won't fight you or put anything back.
 
 A sidebar panel lets you browse, search, and manage your specs.
 
@@ -70,7 +70,7 @@ The "For AI" section is where a preference becomes an instruction: what to fix s
 
 Your specs are just markdown files. **`SPECYOU.md` is what makes the AI actually read them.**
 
-It's a short system prompt loaded on every prompt through a Claude Code [hook](https://docs.anthropic.com/en/docs/claude-code/hooks). In plain terms, it tells the AI: before you do anything, go read this person's specs and work the way they work.
+It's a short system prompt your coding agent loads on every prompt through a hook. In plain terms, it tells the AI: before you do anything, go read this person's specs and work the way they work.
 
 ```
 ~/.specyou/
@@ -90,30 +90,35 @@ Most AI personalization stays shallow: "be concise," "use TypeScript." specyou i
 
 That's taste, and taste is usually trapped in one head, re-explained from scratch every session. Write it down once, and every session comes back the way you'd have done it.
 
-<details>
-<summary>Manual setup (without the extension)</summary>
+## Connect your AI
 
-1. Create `~/.specyou/specs/` and add markdown files.
-2. Add the hook to `~/.claude/settings.json`:
+The extension creates the files; it does not change your agent's settings. Add one prompt hook that prints `SPECYOU.md`.
+
+**Claude Code**, in `~/.claude/settings.json` ([hooks](https://code.claude.com/docs/en/hooks)):
 
 ```json
 {
   "hooks": {
     "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "cat $HOME/.specyou/SPECYOU.md && echo '\\n\\n---\\nTo search specs use: Glob(pattern: **/*.md, path: $HOME/.specyou). Read specs relevant to the current task, not just coding.'"
-          }
-        ]
-      }
+      { "hooks": [{ "type": "command", "command": "cat $HOME/.specyou/SPECYOU.md" }] }
     ]
   }
 }
 ```
 
-</details>
+**Codex**, in `~/.codex/hooks.json` ([hooks](https://learn.chatgpt.com/docs/hooks)), then run `/hooks` in Codex once to trust it:
+
+```json
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      { "hooks": [{ "type": "command", "command": "cat $HOME/.specyou/SPECYOU.md" }] }
+    ]
+  }
+}
+```
+
+Without the extension, create `~/.specyou/specs/` and a `SPECYOU.md` yourself; the [default one](templates/specyou-default.md) is a good start.
 
 ## License
 

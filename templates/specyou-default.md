@@ -48,4 +48,4 @@ If `~/.specyou/specs/` is empty or has nothing relevant, offer to help: "Want me
 
 ---
 
-Search specs with `Glob(pattern: '**/*.md', path: '$HOME/.specyou')`, then read the ones that fit the task. Do that before you start.
+Search the `*.md` files under `~/.specyou/` for the specs that fit the task, then read them. Do that before you start.
